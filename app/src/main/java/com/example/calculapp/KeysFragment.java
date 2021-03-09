@@ -24,7 +24,7 @@ public class KeysFragment extends Fragment {
     Activity activity; // activity used by the Interface
     KeysFragment.Keys keysInterface; // instance of the interface
 
-    ArrayList<com.example.calculapp12.KeysClass> keysArray = new ArrayList<com.example.calculapp12.KeysClass>();
+    ArrayList<KeysClass> keysArray = new ArrayList<KeysClass>();
     ArrayList<View> layoutsArray = new ArrayList<View>();
     ArrayList<View> viewsArray = new ArrayList<View>();
 
@@ -73,7 +73,7 @@ public class KeysFragment extends Fragment {
                 setOnClickListeners (outButton);
                 outButton.setOnLongClickListener(longClickListener);
                 String keyText = outButton.getText().toString();
-                com.example.calculapp12.KeysClass newKey = new com.example.calculapp12.KeysClass(keyText, outButton);
+                KeysClass newKey = new KeysClass(keyText, outButton);
                 keysArray.add (newKey);
                 Log.d(TAG_TRACE, "initKeysArrays button text =" + keyText+" "+keysArray.size());
             }

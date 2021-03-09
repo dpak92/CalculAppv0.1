@@ -11,16 +11,16 @@ import androidx.annotation.NonNull;
 import androidx.appcompat.app.ActionBar;
 import androidx.appcompat.app.AppCompatActivity;
 
-import static com.example.calculapp12.History.addCurrent;
-import static com.example.calculapp12.History.addHistory;
-import static com.example.calculapp12.History.clearCurrent;
-import static com.example.calculapp12.History.delLastInCurrent;
-import static com.example.calculapp12.History.done;
-import static com.example.calculapp12.History.getCurrent;
-import static com.example.calculapp12.History.getHistory;
-import static com.example.calculapp12.History.setCurrentExp;
-import static com.example.calculapp12.History.setDone;
-import static com.example.calculapp12.History.setHistory;
+import static com.example.calculapp.History.addCurrent;
+import static com.example.calculapp.History.addHistory;
+import static com.example.calculapp.History.clearCurrent;
+import static com.example.calculapp.History.delLastInCurrent;
+import static com.example.calculapp.History.done;
+import static com.example.calculapp.History.getCurrent;
+import static com.example.calculapp.History.getHistory;
+import static com.example.calculapp.History.setCurrentExp;
+import static com.example.calculapp.History.setDone;
+import static com.example.calculapp.History.setHistory;
 
 public class MainActivity extends AppCompatActivity implements KeysFragment {
 
@@ -28,8 +28,8 @@ public class MainActivity extends AppCompatActivity implements KeysFragment {
     public static final String KEY_ACTIVITY_CALC = "KEY_ACTIVITY_CALC";
     public static final String KEY_ACTIVITY_DEV = "KEY_ACTIVITY_DEV";
 
-    com.example.calculapp12.DisplayFragment fragmentDisplay = new com.example.calculapp12.DisplayFragment();
-    com.example.calculapp12.History history = new com.example.calculapp12.History();
+    DisplayFragment fragmentDisplay = new DisplayFragment();
+    History history = new History();
 
 
     @Override
@@ -47,13 +47,13 @@ public class MainActivity extends AppCompatActivity implements KeysFragment {
         if (done == null) done = false;
 
         if (savedInstanceState != null) {
-            com.example.calculapp12.History savedHistory = (com.example.calculapp12.History) savedInstanceState.getSerializable(KEY_ACTIVITY_CALC);
-            setCurrentExp(savedHistory.getCurrent());
-            setHistory (savedHistory.getHistory());
+            History savedHistory = (History) savedInstanceState.getSerializable(KEY_ACTIVITY_CALC);
+            setCurrentExp(getCurrent());
+            setHistory (getHistory());
             setDone(savedHistory.getDone());
         }
 
-        fragmentDisplay= (com.example.calculapp12.DisplayFragment) getSupportFragmentManager().findFragmentById(R.id.fragment_display);
+        fragmentDisplay= (DisplayFragment) getSupportFragmentManager().findFragmentById(R.id.fragment_display);
         fragmentDisplay.displayCurrent (getCurrent());
         fragmentDisplay.displayHistory(getHistory());
 
@@ -71,7 +71,7 @@ public class MainActivity extends AppCompatActivity implements KeysFragment {
      */
     @Override
     public void onKeyPressed(String charTyped) {
-        fragmentDisplay= (com.example.calculapp12.DisplayFragment) getSupportFragmentManager().findFragmentById(R.id.fragment_display);
+        fragmentDisplay= (DisplayFragment) getSupportFragmentManager().findFragmentById(R.id.fragment_display);
         if (done) {
             clearCurrent();
             fragmentDisplay.displayCurrent (getCurrent());
@@ -83,10 +83,10 @@ public class MainActivity extends AppCompatActivity implements KeysFragment {
 
     @Override
     public void onDelPressed (int duration) {
-        fragmentDisplay= (com.example.calculapp12.DisplayFragment) getSupportFragmentManager().findFragmentById(R.id.fragment_display);
+        fragmentDisplay= (DisplayFragment) getSupportFragmentManager().findFragmentById(R.id.fragment_display);
         Log.d (TAG_TRACE, "onDelPressed: "+duration);
         switch (duration) {
-            case com.example.calculapp12.KeysFragment.CLICK_SHORT:
+            case KeysFragment.CLICK_SHORT:
                 try {
                     if (done) {
                         clearCurrent();
@@ -98,7 +98,7 @@ public class MainActivity extends AppCompatActivity implements KeysFragment {
                     Log.d(TAG_TRACE, "onDelPressed: hort failed");
                 }
                 break;
-            case com.example.calculapp12.KeysFragment.CLICK_LONG:
+            case KeysFragment.CLICK_LONG:
                 clearCurrent();
                 fragmentDisplay.displayCurrent(getCurrent());
             default:
@@ -111,12 +111,12 @@ public class MainActivity extends AppCompatActivity implements KeysFragment {
      */
     @Override
     public void onEqualsPressed(int duration) {
-        fragmentDisplay= (com.example.calculapp12.DisplayFragment) getSupportFragmentManager().findFragmentById(R.id.fragment_display);
+        fragmentDisplay= (DisplayFragment) getSupportFragmentManager().findFragmentById(R.id.fragment_display);
         switch (duration) {
-            case com.example.calculapp12.KeysFragment.CLICK_SHORT:
+            case KeysFragment.CLICK_SHORT:
                 try {
                     Log.d (TAG_TRACE, "onEqualsPressed: expression= "+getCurrent());
-                    Double dResult = com.example.calculapp12.ExpressionsLib.evalExp(getCurrent());
+                    Double dResult = ExpressionsLib.evalExp(getCurrent());
                     int iResult = dResult.intValue();
                     addCurrent("=");
                     String sResult = Integer.toString(iResult);
@@ -129,9 +129,9 @@ public class MainActivity extends AppCompatActivity implements KeysFragment {
                     Log.d (TAG_TRACE, "onEqualsPressed:  evalExp failed");
                 }
                 break;
-            case com.example.calculapp12.KeysFragment.CLICK_LONG:
+            case KeysFragment.CLICK_LONG:
                 try {
-                    Intent intent = new Intent (this, com.example.calculapp12.ConvertActivity.class);
+                    Intent intent = new Intent (this, ConvertActivity.class);
                     intent.putExtra (KEY_ACTIVITY_DEV, history);
                     startActivityForResult (intent, 1000);
                 } catch (Exception e) {
@@ -147,8 +147,8 @@ public class MainActivity extends AppCompatActivity implements KeysFragment {
 
         if (requestCode == 1000) {
             if(resultCode == Activity.RESULT_OK){
-                history = (com.example.calculapp12.History) getIntent().getSerializableExtra(KEY_ACTIVITY_CALC);
-                fragmentDisplay= (com.example.calculapp12.DisplayFragment) getSupportFragmentManager().findFragmentById(R.id.fragment_display);
+                history = (History) getIntent().getSerializableExtra(KEY_ACTIVITY_CALC);
+                fragmentDisplay= (DisplayFragment) getSupportFragmentManager().findFragmentById(R.id.fragment_display);
                 fragmentDisplay.displayCurrent (getCurrent());
                 fragmentDisplay.displayHistory(getHistory());
                 Log.d (TAG_TRACE, "onActivityResult: OK");

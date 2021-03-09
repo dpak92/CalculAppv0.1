@@ -63,7 +63,7 @@ public class ConvertActivity extends AppCompatActivity implements KeysFragment.K
         fragmentDisplay.displayCurrent (getCurrent());
         fragmentDisplay.displayHistory(getHistory());
 
-        spCurrency = findViewById(R.id.sp);
+        spCurrency = findViewById(R.id.);
         spCurrency.setOnItemSelectedListener(new OnItemSelectedListener() {
             @Override
             public void onItemSelected(AdapterView<?> arg0, View arg1, int arg2,
