@@ -29,7 +29,7 @@
             app:layout_columnWeight="1"
             android:background="@android:color/transparent"
             android:text="AC"
-            android:textSize="30sp" />
+            android:textSize="@dimen/btn_text" />
 
         <Button
             android:id="@+id/button_del"
@@ -38,7 +38,7 @@
             android:layout_height="@dimen/button_size"
             app:layout_columnWeight="1"
             android:background="@android:color/transparent"
-            android:textSize="30sp"
+            android:textSize="@dimen/btn_text"
             android:text="DEL"/>
 
         <Button
@@ -49,7 +49,7 @@
             android:layout_height="@dimen/button_size"
             android:background="@android:color/transparent"
             android:text="%"
-            android:textSize="30sp" />
+            android:textSize="@dimen/btn_text" />
 
         <Button
             android:id="@+id/button_divide"
@@ -60,7 +60,7 @@
             android:layout_height="@dimen/button_size"
             android:background="@android:color/transparent"
             android:text="÷"
-            android:textSize="30sp" />
+            android:textSize="@dimen/btn_text" />
 
         <Button
             android:id="@+id/button_7"
@@ -70,7 +70,7 @@
             android:layout_height="@dimen/button_size"
             android:background="@android:color/transparent"
             android:text="7"
-            android:textSize="30sp" />
+            android:textSize="@dimen/btn_text" />
 
         <Button
             android:id="@+id/button_8"
@@ -80,7 +80,7 @@
             android:layout_height="@dimen/button_size"
             android:background="@android:color/transparent"
             android:text="8"
-            android:textSize="30sp" />
+            android:textSize="@dimen/btn_text" />
 
         <Button
             android:id="@+id/button_9"
@@ -90,7 +90,7 @@
             android:layout_height="@dimen/button_size"
             android:background="@android:color/transparent"
             android:text="9"
-            android:textSize="30sp" />
+            android:textSize="@dimen/btn_text" />
 
         <Button
             android:id="@+id/button_multiply"
@@ -101,7 +101,7 @@
             android:textColor="@color/yello_sunflower"
             android:background="@android:color/transparent"
             android:text="×"
-            android:textSize="30sp" />
+            android:textSize="@dimen/btn_text" />
 
         <Button
             android:id="@+id/button_4"
@@ -111,7 +111,7 @@
             android:layout_height="@dimen/button_size"
             android:background="@android:color/transparent"
             android:text="4"
-            android:textSize="30sp" />
+            android:textSize="@dimen/btn_text" />
 
         <Button
             android:id="@+id/button_5"
@@ -121,7 +121,7 @@
             android:layout_height="@dimen/button_size"
             android:background="@android:color/transparent"
             android:text="5"
-            android:textSize="30sp" />
+            android:textSize="@dimen/btn_text" />
 
         <Button
             android:id="@+id/button_6"
@@ -131,7 +131,7 @@
             android:layout_height="@dimen/button_size"
             android:background="@android:color/transparent"
             android:text="6"
-            android:textSize="30sp" />
+            android:textSize="@dimen/btn_text" />
 
         <Button
             android:id="@+id/button_minus"
@@ -142,7 +142,7 @@
             android:layout_height="@dimen/button_size"
             android:background="@android:color/transparent"
             android:text="-"
-            android:textSize="30sp" />
+            android:textSize="@dimen/btn_text" />
 
         <Button
             android:id="@+id/button_1"
@@ -152,7 +152,7 @@
             android:layout_height="@dimen/button_size"
             android:background="@android:color/transparent"
             android:text="1"
-            android:textSize="30sp" />
+            android:textSize="@dimen/btn_text" />
 
         <Button
             android:id="@+id/button_2"
@@ -162,7 +162,7 @@
             android:layout_height="@dimen/button_size"
             android:background="@android:color/transparent"
             android:text="2"
-            android:textSize="30sp" />
+            android:textSize="@dimen/btn_text" />
 
         <Button
             android:id="@+id/button_3"
@@ -172,7 +172,7 @@
             android:layout_height="@dimen/button_size"
             android:background="@android:color/transparent"
             android:text="3"
-            android:textSize="30sp" />
+            android:textSize="@dimen/btn_text" />
 
         <Button
             android:id="@+id/button_plus"
@@ -183,7 +183,7 @@
             android:layout_height="@dimen/button_size"
             android:background="@android:color/transparent"
             android:text="+"
-            android:textSize="30sp" />
+            android:textSize="@dimen/btn_text" />
 
         <Button
             android:id="@+id/button_comma"
@@ -193,7 +193,7 @@
             android:layout_height="@dimen/button_size"
             android:background="@android:color/transparent"
             android:text=","
-            android:textSize="30sp" />
+            android:textSize="@dimen/btn_text" />
 
         <Button
             android:id="@+id/button_0"
@@ -203,7 +203,7 @@
             android:layout_height="@dimen/button_size"
             android:background="@android:color/transparent"
             android:text="0"
-            android:textSize="30sp" />
+            android:textSize="@dimen/btn_text" />
 
         <Button
             android:id="@+id/button_parentheses"
@@ -213,7 +213,7 @@
             android:layout_height="@dimen/button_size"
             android:background="@android:color/transparent"
             android:text="()"
-            android:textSize="30sp" />
+            android:textSize="@dimen/btn_text" />
 
         <Button
             android:id="@+id/button_equal"
@@ -223,7 +223,7 @@
             android:layout_height="@dimen/button_size"
             android:background="@color/yello_sunflower"
             android:text="="
-            android:textSize="30sp"
+            android:textSize="@dimen/btn_text"
             android:theme="@style/EqualButtonTheme" />
 
 
