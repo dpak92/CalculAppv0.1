@@ -22,7 +22,7 @@ import static com.example.calculapp.History.setCurrentExp;
 import static com.example.calculapp.History.setDone;
 import static com.example.calculapp.History.setHistory;
 
-public class MainActivity extends AppCompatActivity implements KeysFragment {
+public class MainActivity extends AppCompatActivity implements KeysFragment.Keys {
 
     public static final String TAG_TRACE = "TAG_TRACE";
     public static final String KEY_ACTIVITY_CALC = "KEY_ACTIVITY_CALC";
