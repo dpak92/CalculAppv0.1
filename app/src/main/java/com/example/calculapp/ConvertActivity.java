@@ -1,4 +1,4 @@
-package com.example.calculapp12;
+package com.example.calculapp;
 
 import android.app.Activity;
 import android.content.Intent;
@@ -13,27 +13,19 @@ import android.widget.ArrayAdapter;
 import android.widget.Spinner;
 import android.widget.TextView;
 
-import com.example.calculapp.MainActivity;
-import com.example.calculapp10.R;
-
 import java.util.ArrayList;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.ActionBar;
 import androidx.appcompat.app.AppCompatActivity;
 
-import static com.example.calculapp12.History.addCurrent;
-import static com.example.calculapp12.History.addHistory;
-import static com.example.calculapp12.History.clearCurrent;
-import static com.example.calculapp12.History.delLastInCurrent;
-import static com.example.calculapp12.History.done;
-import static com.example.calculapp12.History.getCurrent;
-import static com.example.calculapp12.History.getHistory;
-import static com.example.calculapp12.History.setCurrentExp;
-import static com.example.calculapp12.History.setDone;
-import static com.example.calculapp12.History.setHistory;
+import static com.example.calculapp.History.getCurrent;
+import static com.example.calculapp.History.getHistory;
+import static com.example.calculapp.History.setCurrentExp;
+import static com.example.calculapp.History.setDone;
+import static com.example.calculapp.History.setHistory;
 
-public class ConvertActivity extends AppCompatActivity implements com.example.calculapp12.KeysFragment.Keys{
+public class ConvertActivity extends AppCompatActivity implements KeysFragment.Keys{
 
     private static final String TAG_URL = "https://www.ecb.europa.eu/stats/eurofxref/eurofxref-daily.xml";
     private static final String[] COUNTRIES = {"USD", "JPY", "GBP", "SEK" };
@@ -41,8 +33,8 @@ public class ConvertActivity extends AppCompatActivity implements com.example.ca
     ArrayList<String> spStrings = new ArrayList<String>();
     private static int countrySel = 0;
 
-    com.example.calculapp12.DisplayFragment fragmentDisplay = new com.example.calculapp12.DisplayFragment();
-    com.example.calculapp12.History history = new com.example.calculapp12.History();
+    DisplayFragment fragmentDisplay = new DisplayFragment();
+    History history = new History();
 
     Spinner spCurrency;
     TextView tvTargetCurrency;
@@ -60,18 +52,18 @@ public class ConvertActivity extends AppCompatActivity implements com.example.ca
         setContentView(R.layout.activity_convert);
 
         if (savedInstanceState != null) {
-            com.example.calculapp12.History savedHistory = (com.example.calculapp12.History) savedInstanceState.getSerializable(MainActivity.KEY_ACTIVITY_DEV);
-            setCurrentExp(savedHistory.getCurrent());
-            setHistory (savedHistory.getHistory());
+            History savedHistory = (History) savedInstanceState.getSerializable(MainActivity.KEY_ACTIVITY_DEV);
+            setCurrentExp(getCurrent());
+            setHistory (getHistory());
             setDone(savedHistory.getDone());
         }
 
-        history = (com.example.calculapp12.History) getIntent().getSerializableExtra(MainActivity.KEY_ACTIVITY_DEV);
-        fragmentDisplay= (com.example.calculapp12.DisplayFragment) getSupportFragmentManager().findFragmentById(R.id.fragment_display);
+        history = (History) getIntent().getSerializableExtra(MainActivity.KEY_ACTIVITY_DEV);
+        fragmentDisplay= (DisplayFragment) getSupportFragmentManager().findFragmentById(R.id.fragment_display);
         fragmentDisplay.displayCurrent (getCurrent());
         fragmentDisplay.displayHistory(getHistory());
 
-        spCurrency = findViewById(R.id.sp_convert_currency_select);
+        spCurrency = findViewById(R.id.sp);
         spCurrency.setOnItemSelectedListener(new OnItemSelectedListener() {
             @Override
             public void onItemSelected(AdapterView<?> arg0, View arg1, int arg2,

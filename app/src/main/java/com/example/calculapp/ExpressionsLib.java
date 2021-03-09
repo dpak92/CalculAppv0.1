@@ -1,4 +1,4 @@
-package com.example.calculapp12;
+package com.example.calculapp;
 
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
