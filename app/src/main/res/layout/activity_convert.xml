@@ -4,8 +4,8 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@drawable/metal_background"
-    tools:context="com.example.calculapp12.ConvertActivity">
+    android:background="@color/black_pearl"
+    tools:context="com.example.calculapp.ConvertActivity">
 
     <Spinner
         android:id="@+id/sp_convert_currency_select"

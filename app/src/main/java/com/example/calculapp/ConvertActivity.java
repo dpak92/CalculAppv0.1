@@ -19,6 +19,11 @@ import androidx.annotation.NonNull;
 import androidx.appcompat.app.ActionBar;
 import androidx.appcompat.app.AppCompatActivity;
 
+import static com.example.calculapp.History.addCurrent;
+import static com.example.calculapp.History.addHistory;
+import static com.example.calculapp.History.clearCurrent;
+import static com.example.calculapp.History.delLastInCurrent;
+import static com.example.calculapp.History.done;
 import static com.example.calculapp.History.getCurrent;
 import static com.example.calculapp.History.getHistory;
 import static com.example.calculapp.History.setCurrentExp;
@@ -63,7 +68,7 @@ public class ConvertActivity extends AppCompatActivity implements KeysFragment.K
         fragmentDisplay.displayCurrent (getCurrent());
         fragmentDisplay.displayHistory(getHistory());
 
-        spCurrency = findViewById(R.id.);
+        spCurrency = findViewById(R.id.sp_convert_currency_select);
         spCurrency.setOnItemSelectedListener(new OnItemSelectedListener() {
             @Override
             public void onItemSelected(AdapterView<?> arg0, View arg1, int arg2,
@@ -94,7 +99,7 @@ public class ConvertActivity extends AppCompatActivity implements KeysFragment.K
 
     @Override
     public void onKeyPressed(String charTyped) {
-        fragmentDisplay= (com.example.calculapp12.DisplayFragment) getSupportFragmentManager().findFragmentById(R.id.fragment_display);
+        fragmentDisplay= (DisplayFragment) getSupportFragmentManager().findFragmentById(R.id.fragment_display);
         if (done) {
             clearCurrent();
             fragmentDisplay.displayCurrent (getCurrent());
@@ -106,9 +111,9 @@ public class ConvertActivity extends AppCompatActivity implements KeysFragment.K
 
     @Override
     public void onDelPressed(int duration) {
-        fragmentDisplay= (com.example.calculapp12.DisplayFragment) getSupportFragmentManager().findFragmentById(R.id.fragment_display);
+        fragmentDisplay= (DisplayFragment) getSupportFragmentManager().findFragmentById(R.id.fragment_display);
         switch (duration) {
-            case com.example.calculapp12.KeysFragment.CLICK_SHORT:
+            case KeysFragment.CLICK_SHORT:
                 if (done) {
                     clearCurrent();
                     fragmentDisplay.displayCurrent (getCurrent());
@@ -116,7 +121,7 @@ public class ConvertActivity extends AppCompatActivity implements KeysFragment.K
                 delLastInCurrent();
                 fragmentDisplay.displayCurrent (getCurrent());
                 break;
-            case com.example.calculapp12.KeysFragment.CLICK_LONG:
+            case KeysFragment.CLICK_LONG:
                 clearCurrent();
                 fragmentDisplay.displayCurrent(getCurrent());
             default:
@@ -125,12 +130,12 @@ public class ConvertActivity extends AppCompatActivity implements KeysFragment.K
 
     @Override
     public void onEqualsPressed(int duration) {
-        fragmentDisplay= (com.example.calculapp12.DisplayFragment) getSupportFragmentManager().findFragmentById(R.id.fragment_display);
+        fragmentDisplay= (DisplayFragment) getSupportFragmentManager().findFragmentById(R.id.fragment_display);
         switch (duration) {
-            case com.example.calculapp12.KeysFragment.CLICK_SHORT:
+            case KeysFragment.CLICK_SHORT:
                 try {
                     Log.d (MainActivity.TAG_TRACE, "onEqualsPressed: expression= "+getCurrent());
-                    Double dResult = com.example.calculapp12.ExpressionsLib.evalExp(getCurrent());
+                    Double dResult = ExpressionsLib.evalExp(getCurrent());
                     Double dResult2 = dResult * RATES[countrySel];
                     int iResult = dResult.intValue();
                     int iResult2 = dResult2.intValue();
@@ -149,7 +154,7 @@ public class ConvertActivity extends AppCompatActivity implements KeysFragment.K
                     Log.d (MainActivity.TAG_TRACE, "onEqualsPressed:  evalExp failed");
                 };
                 break;
-            case com.example.calculapp12.KeysFragment.CLICK_LONG:
+            case KeysFragment.CLICK_LONG:
                 try {
                     Intent returnIntent = new Intent();
                     returnIntent.putExtra(MainActivity.KEY_ACTIVITY_CALC, history);
