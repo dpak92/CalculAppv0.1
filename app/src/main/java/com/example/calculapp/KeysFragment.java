@@ -46,6 +46,7 @@ public class KeysFragment extends Fragment {
                              Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_keys, container, false);
 
+
         initKeysArrays (view);
 
         return view;

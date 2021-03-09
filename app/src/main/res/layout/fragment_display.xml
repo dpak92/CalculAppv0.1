@@ -4,7 +4,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
-    tools:context="com.example.calculapp12.DisplayFragment">
+    tools:context=".MainActivity">
 
     <TextView
         android:id="@+id/tv_fragment_display_current"
