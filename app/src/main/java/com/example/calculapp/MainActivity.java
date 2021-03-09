@@ -49,10 +49,7 @@ public class MainActivity extends AppCompatActivity implements KeysFragment.Keys
 
         setContentView(R.layout.activity_main);
 
-
-        dbManager = new DatabaseManager(this);
-        dbManager.open();
-
+        initHistory();
 
         if (done == null) done = false;
 
@@ -66,6 +63,14 @@ public class MainActivity extends AppCompatActivity implements KeysFragment.Keys
         fragmentDisplay= (DisplayFragment) getSupportFragmentManager().findFragmentById(R.id.fragment_display);
         fragmentDisplay.displayCurrent (getCurrent());
         fragmentDisplay.displayHistory(getHistory());
+
+    }
+
+    private void initHistory (){
+        dbManager = new DatabaseManager(this);
+        dbManager.open();
+        Cursor cursor = dbManager.fetch();
+        String historyExpression = "";
 
     }
 

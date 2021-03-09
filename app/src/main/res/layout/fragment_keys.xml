@@ -100,7 +100,7 @@
             android:layout_height="@dimen/button_size"
             android:textColor="@color/yello_sunflower"
             android:background="@android:color/transparent"
-            android:text="×"
+            android:text="x"
             android:textSize="@dimen/btn_text" />
 
         <Button
