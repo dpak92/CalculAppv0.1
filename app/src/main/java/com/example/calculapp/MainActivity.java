@@ -2,10 +2,14 @@ package com.example.calculapp;
 
 import android.app.Activity;
 import android.content.Intent;
+import android.database.Cursor;
 import android.graphics.Color;
 import android.graphics.drawable.ColorDrawable;
 import android.os.Bundle;
 import android.util.Log;
+
+import com.example.calculapp.database.DatabaseHelper;
+import com.example.calculapp.database.DatabaseManager;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.ActionBar;
@@ -31,6 +35,7 @@ public class MainActivity extends AppCompatActivity implements KeysFragment.Keys
     DisplayFragment fragmentDisplay = new DisplayFragment();
     History history = new History();
 
+    private DatabaseManager dbManager;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -43,6 +48,11 @@ public class MainActivity extends AppCompatActivity implements KeysFragment.Keys
         // bar.setBackgroundDrawable(getResources().getDrawable(R.drawable.settings_icon));
 
         setContentView(R.layout.activity_main);
+
+
+        dbManager = new DatabaseManager(this);
+        dbManager.open();
+
 
         if (done == null) done = false;
 
