@@ -1,0 +1,27 @@
+<resources>
+    <string name="app_name">CalculApp</string>
+    <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="msg_hello">Welcome to Calculapp ;-)</string>
+    <string name="btn_frame_input_equals">EQUALS</string>
+    <string name="keys">KEYS</string>
+    <string name="linear_layouts">LINEAR_L</string>
+    <string name="key_0">0</string>
+    <string name="key_1">1</string>
+    <string name="key_2">2</string>
+    <string name="key_3">3</string>
+    <string name="key_4">4</string>
+    <string name="key_5">5</string>
+    <string name="key_6">6</string>
+    <string name="key_7">7</string>
+    <string name="key_8">8</string>
+    <string name="key_9">9</string>
+    <string name="key_multiply">*</string>
+    <string name="key_plus">+</string>
+    <string name="key_minus">-</string>
+    <string name="key_divide">/</string>
+    <string name="key_delete">DEL</string>
+    <string name="key_equals">=</string>
+    <string name="title_main">Calculapp 1.0 -  Calculator</string>
+    <string name="title_converter">Calculapp 1.0 - Currency Converter</string>
+    <string name="tv_convert_currency">EUR to :</string>
+</resources>
