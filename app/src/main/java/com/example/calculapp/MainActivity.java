@@ -12,8 +12,6 @@ import com.example.calculapp.database.DatabaseManager;
 import com.example.calculapp.model.History;
 import com.example.calculapp.model.HistoryExp;
 
-import java.util.ArrayList;
-
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.ActionBar;
 import androidx.appcompat.app.AppCompatActivity;
@@ -25,7 +23,7 @@ import static com.example.calculapp.model.History.delLastInCurrent;
 import static com.example.calculapp.model.History.getCurrent;
 import static com.example.calculapp.model.History.getDone;
 import static com.example.calculapp.model.History.getHistory;
-import static com.example.calculapp.model.History.setCurrentExp;
+import static com.example.calculapp.model.History.historyStrings;
 import static com.example.calculapp.model.History.setDone;
 import static com.example.calculapp.model.History.setHistory;
 
@@ -60,6 +58,9 @@ public class MainActivity extends AppCompatActivity implements KeysFragment.Keys
 
         if (savedInstanceState != null) {
             history  = (History) savedInstanceState.getSerializable(KEY_ACTIVITY_CALC);
+            setHistory(history.historyArray);
+            Log.d (TAG_TRACE, "savedInstanceState: done= "+history.done);
+            Log.d (TAG_TRACE, "savedInstanceState: currentExp= "+history.currentExp);
         }
 
         fragmentDisplay= (DisplayFragment) getSupportFragmentManager().findFragmentById(R.id.fragment_display);
@@ -71,7 +72,7 @@ public class MainActivity extends AppCompatActivity implements KeysFragment.Keys
     private void initHistory (){
         dbManager = new DatabaseManager(this);
         dbManager.open();
-        setHistory(dbManager.readAllHistory());
+        setHistory(dbManager.readAllHistory(historyStrings));
         setDone(false);
         dbManager.close();
     }
@@ -112,7 +113,7 @@ public class MainActivity extends AppCompatActivity implements KeysFragment.Keys
                     delLastInCurrent();
                     fragmentDisplay.displayCurrent(getCurrent());
                 } catch (Exception e) {
-                    Log.d(TAG_TRACE, "onDelPressed: hort failed");
+                    Log.d(TAG_TRACE, "onDelPressed: short failed");
                 }
                 break;
             case KeysFragment.CLICK_LONG:
@@ -139,7 +140,8 @@ public class MainActivity extends AppCompatActivity implements KeysFragment.Keys
                     String sResult = Integer.toString(iResult);
                     addCurrent(sResult);
                     fragmentDisplay.displayCurrent (getCurrent());
-                    addHistory(getCurrent());
+                    HistoryExp exp = addHistory(getCurrent());
+                    dbManager.createHistory(exp);
                     fragmentDisplay.displayHistory(getHistory());
                     setDone(true);
                 } catch (Exception e) {
@@ -156,6 +158,13 @@ public class MainActivity extends AppCompatActivity implements KeysFragment.Keys
                 };
             default:
         }
+    }
+
+    @Override
+    public void onACPressed(int duration) {
+     if (duration == KeysFragment.CLICK_LONG){
+         dbManager.delete();
+     }
     }
 
     @Override

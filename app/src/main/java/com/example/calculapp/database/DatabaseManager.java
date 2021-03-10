@@ -25,39 +25,50 @@ public class DatabaseManager {
     {
         context = c;
         dbHelper = new DatabaseHelper(context);
-        database = dbHelper.getWritableDatabase();
+        Log.d (TAG_TRACE, "DatabaseManager: new.");
     }
 
     public DatabaseManager open() throws SQLException {
-
         database = dbHelper.getWritableDatabase();
+        Log.d (TAG_TRACE, "DatabaseManager: open().");
         return this;
     }
 
     public void close () {
+        Log.d (TAG_TRACE, "DatabaseManager: close().");
         dbHelper.close();
+    }
+
+    public void delete() {
+        Log.d (TAG_TRACE, "DatabaseManager: delete TABLE_HISTORY.");
+        database.execSQL(HistoryTable.DELETE_TABLE_HISTORY);
     }
 
     public void createHistory (HistoryExp inItem) {
         ContentValues values = HistoryTable.setValues(inItem);
-        database.insert(HistoryTable.TABLE_HISTORY, null, values);
+        long ret = database.insert(HistoryTable.TABLE_HISTORY, null, values);
         Log.d (TAG_TRACE, "createHistory: "+inItem.toString());
+        Log.d (TAG_TRACE, "createHistory: return= "+ret);
     }
 
     public long countHistory (){
         return DatabaseUtils.queryNumEntries(database,HistoryTable.TABLE_HISTORY);
     }
 
-    public ArrayList <HistoryExp> readAllHistory  () {
+    public ArrayList <HistoryExp> readAllHistory  (ArrayList<String> strings) {
         ArrayList<HistoryExp> items = new ArrayList<>();
-        Cursor cursor = database.query(HistoryTable.TABLE_HISTORY, HistoryTable.ALL_COLUMNS,
-                null, null, null, null, null);
+        Log.d (TAG_TRACE, "readAllHistory: query= "+HistoryTable.TABLE_HISTORY+ " "+HistoryTable.ALL_COLUMNS);
         try {
+            Cursor cursor = database.query(HistoryTable.TABLE_HISTORY, HistoryTable.ALL_COLUMNS,
+                null, null, null, null, null);
+
             while (cursor.moveToNext()) {
                 HistoryExp item = new HistoryExp();
-                item.set_id(cursor.getString(cursor.getColumnIndex(HistoryTable._ID)));
-                item.set_id(cursor.getString(cursor.getColumnIndex(HistoryTable.EXPRESSION)));
-                item.set_id(cursor.getString(cursor.getColumnIndex(HistoryTable.TIMESTAMP)));
+                item.set_id(cursor.getLong(cursor.getColumnIndex(HistoryTable._ID)));
+                item.setExpression(cursor.getString(cursor.getColumnIndex(HistoryTable.EXPRESSION)));
+                item.setTimestamp(cursor.getString(cursor.getColumnIndex(HistoryTable.TIMESTAMP)));
+                items.add(0,item);
+                strings.add (0, item.getExpression());
                 Log.d (TAG_TRACE, "readAllHistory: item= "+item.toString());
             }
         } catch (Exception e) {

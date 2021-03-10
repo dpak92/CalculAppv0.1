@@ -1,9 +1,11 @@
 package com.example.calculapp.model;
 
-import com.example.calculapp.database.DatabaseManager;
+import android.util.Log;
 
 import java.io.Serializable;
 import java.util.ArrayList;
+
+import static com.example.calculapp.MainActivity.TAG_TRACE;
 
 public class History implements Serializable {
     public static ArrayList<HistoryExp> historyArray = new ArrayList<HistoryExp>();
@@ -42,19 +44,24 @@ public class History implements Serializable {
         return currentExp;
     }
 
-    public static void addHistory (String inExpression) {
+    public static HistoryExp addHistory (String inExpression) {
         HistoryExp exp = new HistoryExp();
         exp.setTimestamp("NO TIMESTAMP");
         exp.setExpression(inExpression);
         historyArray.add(0, exp);
+        for (HistoryExp hE:historyArray){
+            Log.d (TAG_TRACE, "addHistory: "+hE.toString());
+        }
+        historyStrings.add(0, inExpression);
+        return exp;
     }
 
     public static void setHistory (ArrayList<HistoryExp> inHistory) {
         historyArray = inHistory;
     }
 
-    public static ArrayList<HistoryExp> getHistory () {
-        return historyArray;
+    public static ArrayList<String> getHistory () {
+        return historyStrings;
     }
 
     public static void clearHistory () {

@@ -13,22 +13,24 @@ import android.widget.ArrayAdapter;
 import android.widget.Spinner;
 import android.widget.TextView;
 
+import com.example.calculapp.model.History;
+
 import java.util.ArrayList;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.ActionBar;
 import androidx.appcompat.app.AppCompatActivity;
 
-import static com.example.calculapp.History.addCurrent;
-import static com.example.calculapp.History.addHistory;
-import static com.example.calculapp.History.clearCurrent;
-import static com.example.calculapp.History.delLastInCurrent;
-import static com.example.calculapp.History.done;
-import static com.example.calculapp.History.getCurrent;
-import static com.example.calculapp.History.getHistory;
-import static com.example.calculapp.History.setCurrentExp;
-import static com.example.calculapp.History.setDone;
-import static com.example.calculapp.History.setHistory;
+import static com.example.calculapp.MainActivity.KEY_ACTIVITY_DEV;
+import static com.example.calculapp.model.History.addCurrent;
+import static com.example.calculapp.model.History.addHistory;
+import static com.example.calculapp.model.History.clearCurrent;
+import static com.example.calculapp.model.History.delLastInCurrent;
+import static com.example.calculapp.model.History.getCurrent;
+import static com.example.calculapp.model.History.getDone;
+import static com.example.calculapp.model.History.getHistory;
+import static com.example.calculapp.model.History.setDone;
+import static com.example.calculapp.model.History.setHistory;
 
 public class ConvertActivity extends AppCompatActivity implements KeysFragment.Keys{
 
@@ -57,13 +59,12 @@ public class ConvertActivity extends AppCompatActivity implements KeysFragment.K
         setContentView(R.layout.activity_convert);
 
         if (savedInstanceState != null) {
-            History savedHistory = (History) savedInstanceState.getSerializable(MainActivity.KEY_ACTIVITY_DEV);
-            setCurrentExp(getCurrent());
-            setHistory (getHistory());
-            setDone(savedHistory.getDone());
+            History history = (History) savedInstanceState.getSerializable(KEY_ACTIVITY_DEV);
+            history  = (History) savedInstanceState.getSerializable(KEY_ACTIVITY_DEV);
+            setHistory(history.historyArray);
         }
 
-        history = (History) getIntent().getSerializableExtra(MainActivity.KEY_ACTIVITY_DEV);
+        history = (History) getIntent().getSerializableExtra(KEY_ACTIVITY_DEV);
         fragmentDisplay= (DisplayFragment) getSupportFragmentManager().findFragmentById(R.id.fragment_display);
         fragmentDisplay.displayCurrent (getCurrent());
         fragmentDisplay.displayHistory(getHistory());
@@ -100,12 +101,12 @@ public class ConvertActivity extends AppCompatActivity implements KeysFragment.K
     @Override
     public void onKeyPressed(String charTyped) {
         fragmentDisplay= (DisplayFragment) getSupportFragmentManager().findFragmentById(R.id.fragment_display);
-        if (done) {
+        if (getDone()) {
             clearCurrent();
             fragmentDisplay.displayCurrent (getCurrent());
         }
         addCurrent(charTyped);
-        done = false;
+        setDone(false);
         fragmentDisplay.displayCurrent (getCurrent());
     }
 
@@ -114,7 +115,7 @@ public class ConvertActivity extends AppCompatActivity implements KeysFragment.K
         fragmentDisplay= (DisplayFragment) getSupportFragmentManager().findFragmentById(R.id.fragment_display);
         switch (duration) {
             case KeysFragment.CLICK_SHORT:
-                if (done) {
+                if (getDone()) {
                     clearCurrent();
                     fragmentDisplay.displayCurrent (getCurrent());
                 }
@@ -149,7 +150,7 @@ public class ConvertActivity extends AppCompatActivity implements KeysFragment.K
                     fragmentDisplay.displayCurrent (getCurrent());
                     addHistory(getCurrent());
                     fragmentDisplay.displayHistory(getHistory());
-                    done = true;
+                    setDone(true);
                 } catch (Exception e) {
                     Log.d (MainActivity.TAG_TRACE, "onEqualsPressed:  evalExp failed");
                 };
@@ -168,8 +169,14 @@ public class ConvertActivity extends AppCompatActivity implements KeysFragment.K
     }
 
     @Override
+    public void onACPressed(int duration) {
+        if (duration == KeysFragment.CLICK_LONG) {
+        }
+    }
+
+    @Override
     protected void onSaveInstanceState(@NonNull Bundle outState) {
         super.onSaveInstanceState(outState);
-        outState.putSerializable(MainActivity.KEY_ACTIVITY_DEV, history);
+        outState.putSerializable(KEY_ACTIVITY_DEV, history);
     }
 }

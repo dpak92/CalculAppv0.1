@@ -10,7 +10,7 @@ public class HistoryTable {
     public static final String TABLE_HISTORY = "TABLE_HISTORY";
 
     // Table columns
-    public static final String _ID = "_id";
+    public static final String _ID = "id";
     public static final String EXPRESSION = "expression";
     public static final String TIMESTAMP  = "timestamp";
     public static final String[] ALL_COLUMNS = {_ID, EXPRESSION, TIMESTAMP};
@@ -21,6 +21,8 @@ public class HistoryTable {
             "," + EXPRESSION + " TEXT"+
             "," + TIMESTAMP + " TEXT"+
             ")";
+
+    public static final String DELETE_TABLE_HISTORY = "DROP TABLE IF EXISTS "+TABLE_HISTORY;
 
     public static ContentValues setValues (HistoryExp inValue) {;
         ContentValues values = new ContentValues();

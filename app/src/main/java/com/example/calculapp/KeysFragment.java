@@ -32,6 +32,7 @@ public class KeysFragment extends Fragment {
         void onKeyPressed (String charTyped);
         void onDelPressed (int duration);
         void onEqualsPressed (int duration);
+        void onACPressed (int duration);
     }
 
     /**
@@ -144,6 +145,8 @@ public class KeysFragment extends Fragment {
                 keysInterface.onEqualsPressed(CLICK_LONG);
             } else if (clickedButton.getId() == R.id.button_del) {
                 keysInterface.onDelPressed(CLICK_LONG);
+            } else if (clickedButton.getId() == R.id.button_AC) {
+                keysInterface.onACPressed(CLICK_LONG);
             }
             return true;
         }

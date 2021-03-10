@@ -1,13 +1,12 @@
 package com.example.calculapp.model;
 
 import java.io.Serializable;
-import java.text.SimpleDateFormat;
 
 public class HistoryExp implements Serializable {
 
     public static final String TIMESTAMP_FORMAT = "DD-MM-YYYY-hh-mm-ss";
 
-    String _id;
+    long _id;
     String expression;
     String timestamp;
 
@@ -18,11 +17,11 @@ public class HistoryExp implements Serializable {
         return TIMESTAMP_FORMAT;
     }
 
-    public String get_id() {
+    public long get_id() {
         return _id;
     }
 
-    public void set_id(String _id) {
+    public void set_id(long _id) {
         this._id = _id;
     }
 
