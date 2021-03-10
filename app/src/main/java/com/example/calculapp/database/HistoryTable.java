@@ -22,7 +22,7 @@ public class HistoryTable {
             "," + TIMESTAMP + " TEXT"+
             ")";
 
-    public static final String DELETE_TABLE_HISTORY = "DROP TABLE IF EXISTS "+TABLE_HISTORY;
+    public static final String DELETE_TABLE_HISTORY = "DELETE FROM "+TABLE_HISTORY;
 
     public static ContentValues setValues (HistoryExp inValue) {;
         ContentValues values = new ContentValues();

@@ -12,7 +12,7 @@
         android:layout_height="wrap_content"
         android:background="@color/Kombu_Green"
         android:textColor="#FFFFFF"
-        android:textSize="54sp"
+        android:textSize="56sp"
         android:fontFamily="@font/digital_7_italic"/>
 
     <ListView
