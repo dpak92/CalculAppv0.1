@@ -21,12 +21,15 @@ public class DatabaseManager {
     private DatabaseHelper dbHelper;
     private SQLiteDatabase database;
 
-    public DatabaseManager(Context c) {
+    public DatabaseManager(Context c)
+    {
         context = c;
+        dbHelper = new DatabaseHelper(context);
+        database = dbHelper.getWritableDatabase();
     }
 
     public DatabaseManager open() throws SQLException {
-        dbHelper = new DatabaseHelper(context);
+
         database = dbHelper.getWritableDatabase();
         return this;
     }

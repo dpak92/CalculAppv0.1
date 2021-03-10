@@ -2,15 +2,14 @@ package com.example.calculapp;
 
 import android.app.Activity;
 import android.content.Intent;
-import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.graphics.Color;
 import android.graphics.drawable.ColorDrawable;
 import android.os.Bundle;
 import android.util.Log;
 
-import com.example.calculapp.database.DatabaseHelper;
 import com.example.calculapp.database.DatabaseManager;
+import com.example.calculapp.model.History;
 import com.example.calculapp.model.HistoryExp;
 
 import java.util.ArrayList;
@@ -19,16 +18,16 @@ import androidx.annotation.NonNull;
 import androidx.appcompat.app.ActionBar;
 import androidx.appcompat.app.AppCompatActivity;
 
-import static com.example.calculapp.History.addCurrent;
-import static com.example.calculapp.History.addHistory;
-import static com.example.calculapp.History.clearCurrent;
-import static com.example.calculapp.History.delLastInCurrent;
-import static com.example.calculapp.History.done;
-import static com.example.calculapp.History.getCurrent;
-import static com.example.calculapp.History.getHistory;
-import static com.example.calculapp.History.setCurrentExp;
-import static com.example.calculapp.History.setDone;
-import static com.example.calculapp.History.setHistory;
+import static com.example.calculapp.model.History.addCurrent;
+import static com.example.calculapp.model.History.addHistory;
+import static com.example.calculapp.model.History.clearCurrent;
+import static com.example.calculapp.model.History.delLastInCurrent;
+import static com.example.calculapp.model.History.getCurrent;
+import static com.example.calculapp.model.History.getDone;
+import static com.example.calculapp.model.History.getHistory;
+import static com.example.calculapp.model.History.setCurrentExp;
+import static com.example.calculapp.model.History.setDone;
+import static com.example.calculapp.model.History.setHistory;
 
 public class MainActivity extends AppCompatActivity implements KeysFragment.Keys {
 
@@ -38,12 +37,10 @@ public class MainActivity extends AppCompatActivity implements KeysFragment.Keys
 
     DisplayFragment fragmentDisplay = new DisplayFragment();
 
-    private DatabaseManager dbManager;
-    SQLiteDatabase database;
+    History history = new History();
 
-    public static ArrayList<HistoryExp> historyArray = new ArrayList<HistoryExp>();
-    public static String currentExp;
-    public static Boolean done;
+    DatabaseManager dbManager;
+    SQLiteDatabase database;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -59,31 +56,24 @@ public class MainActivity extends AppCompatActivity implements KeysFragment.Keys
 
         initHistory();
 
-        if (done == null) done = false;
+        if (getDone() == null) setDone (false);
 
         if (savedInstanceState != null) {
-            ArrayList<HistoryExp> savedHistory = (ArrayList<HistoryExp>) savedInstanceState.getSerializable(KEY_ACTIVITY_CALC);
-            setCurrentExp(getCurrent());
-            setHistory (getHistory());
-            setDone(savedHistory.getDone());
+            history  = (History) savedInstanceState.getSerializable(KEY_ACTIVITY_CALC);
         }
 
         fragmentDisplay= (DisplayFragment) getSupportFragmentManager().findFragmentById(R.id.fragment_display);
         fragmentDisplay.displayCurrent (getCurrent());
-        fragmentDisplay.displayHistory(getHistory());
+        fragmentDisplay.displayHistory (getHistory());
 
     }
 
     private void initHistory (){
         dbManager = new DatabaseManager(this);
         dbManager.open();
-        ArrayList <HistoryExp> historyExp = new ArrayList<HistoryExp>();
-        String historyExpression = "";
-        historyExp = (ArrayList<HistoryExp>) dbManager.readAllHistory();
-        setHistory (historyExp);
-
+        setHistory(dbManager.readAllHistory());
+        setDone(false);
         dbManager.close();
-
     }
 
     @Override
@@ -99,12 +89,12 @@ public class MainActivity extends AppCompatActivity implements KeysFragment.Keys
     @Override
     public void onKeyPressed(String charTyped) {
         fragmentDisplay= (DisplayFragment) getSupportFragmentManager().findFragmentById(R.id.fragment_display);
-        if (done) {
+        if (getDone()) {
             clearCurrent();
             fragmentDisplay.displayCurrent (getCurrent());
         }
         addCurrent(charTyped);
-        done = false;
+        setDone(false);
         fragmentDisplay.displayCurrent (getCurrent());
     }
 
@@ -115,7 +105,7 @@ public class MainActivity extends AppCompatActivity implements KeysFragment.Keys
         switch (duration) {
             case KeysFragment.CLICK_SHORT:
                 try {
-                    if (done) {
+                    if (getDone()) {
                         clearCurrent();
                         fragmentDisplay.displayCurrent(getCurrent());
                     }
@@ -151,7 +141,7 @@ public class MainActivity extends AppCompatActivity implements KeysFragment.Keys
                     fragmentDisplay.displayCurrent (getCurrent());
                     addHistory(getCurrent());
                     fragmentDisplay.displayHistory(getHistory());
-                    done = true;
+                    setDone(true);
                 } catch (Exception e) {
                     Log.d (TAG_TRACE, "onEqualsPressed:  evalExp failed");
                 }

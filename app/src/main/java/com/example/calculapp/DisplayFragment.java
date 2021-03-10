@@ -10,7 +10,11 @@ import android.widget.ArrayAdapter;
 import android.widget.ListView;
 import android.widget.TextView;
 
+import com.example.calculapp.model.HistoryExp;
+
 import java.util.ArrayList;
+import java.util.Collection;
+import java.util.Collections;
 
 public class DisplayFragment extends Fragment {
 
@@ -50,7 +54,7 @@ public class DisplayFragment extends Fragment {
 
     /**
      * Displays the expressions history (already computed expressions) in the history ListView.
-     * @param   inStrings    the history of calculated expressions
+     * @param   inStrings    the history of calculated expressions without timestamp.
      */
     public void displayHistory (ArrayList<String> inStrings) {
         ListView lvHistory;

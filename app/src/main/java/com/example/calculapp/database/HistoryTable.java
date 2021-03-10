@@ -1,7 +1,6 @@
 package com.example.calculapp.database;
 
 import android.content.ContentValues;
-import android.database.sqlite.SQLiteDatabase;
 
 import com.example.calculapp.model.HistoryExp;
 

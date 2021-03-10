@@ -9,7 +9,7 @@ public class HistoryExp implements Serializable {
 
     String _id;
     String expression;
-    SimpleDateFormat timestamp;
+    String timestamp;
 
     public HistoryExp () {
     }
@@ -34,11 +34,11 @@ public class HistoryExp implements Serializable {
         this.expression = expression;
     }
 
-    public SimpleDateFormat getTimestamp() {
+    public String getTimestamp() {
         return timestamp;
     }
 
-    public void setTimestamp(SimpleDateFormat timestamp) {
+    public void setTimestamp(String timestamp) {
         this.timestamp = timestamp;
     }
 
