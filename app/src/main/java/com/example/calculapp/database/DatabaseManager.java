@@ -3,8 +3,16 @@ package com.example.calculapp.database;
 import android.content.ContentValues;
 import android.content.Context;
 import android.database.Cursor;
+import android.database.DatabaseUtils;
 import android.database.SQLException;
 import android.database.sqlite.SQLiteDatabase;
+import android.util.Log;
+
+import com.example.calculapp.model.HistoryExp;
+
+import java.util.ArrayList;
+
+import static com.example.calculapp.MainActivity.TAG_TRACE;
 
 public class DatabaseManager {
 
@@ -23,34 +31,56 @@ public class DatabaseManager {
         return this;
     }
 
-    public void close() {
+    public void close () {
         dbHelper.close();
     }
 
-    public void insert() {
-        ContentValues contentValue = new ContentValues();
-        contentValue.put(DatabaseHelper.EXPRESSION, desc);
-        database.insert(DatabaseHelper.TABLE_HISTORY, null, contentValue);
+    public void createHistory (HistoryExp inItem) {
+        ContentValues values = HistoryTable.setValues(inItem);
+        database.insert(HistoryTable.TABLE_HISTORY, null, values);
+        Log.d (TAG_TRACE, "createHistory: "+inItem.toString());
     }
 
-    public Cursor fetch() {
-        String[] columns = new String[] { DatabaseHelper._ID, DatabaseHelper.EXPRESSION };
-        Cursor cursor = database.query(DatabaseHelper.TABLE_HISTORY, columns, null, null, null, null, null);
-        if (cursor != null) {
-            cursor.moveToFirst();
+    public long countHistory (){
+        return DatabaseUtils.queryNumEntries(database,HistoryTable.TABLE_HISTORY);
+    }
+
+    public ArrayList <HistoryExp> readAllHistory  () {
+        ArrayList<HistoryExp> items = new ArrayList<>();
+        Cursor cursor = database.query(HistoryTable.TABLE_HISTORY, HistoryTable.ALL_COLUMNS,
+                null, null, null, null, null);
+        try {
+            while (cursor.moveToNext()) {
+                HistoryExp item = new HistoryExp();
+                item.set_id(cursor.getString(cursor.getColumnIndex(HistoryTable._ID)));
+                item.set_id(cursor.getString(cursor.getColumnIndex(HistoryTable.EXPRESSION)));
+                item.set_id(cursor.getString(cursor.getColumnIndex(HistoryTable.TIMESTAMP)));
+                Log.d (TAG_TRACE, "readAllHistory: item= "+item.toString());
+            }
+        } catch (Exception e) {
+            Log.d (TAG_TRACE, "readAllHistory: Exception");
         }
-        return cursor;
+        return items;
     }
 
-    public int update(long _id, String exp) {
-        ContentValues contentValues = new ContentValues();
-        contentValues.put(DatabaseHelper.EXPRESSION, exp);
-        int i = database.update(DatabaseHelper.TABLE_HISTORY, contentValues, DatabaseHelper._ID + " = " + _id, null);
-        return i;
+    public int updateHistory (HistoryExp inExpression, String itemId) {
+        ContentValues values = HistoryTable.setValues(inExpression);
+        String[] whereClause = {itemId};
+        int result = database.update (HistoryTable.TABLE_HISTORY,
+                values,
+                values.getAsString(HistoryTable._ID)+" = ?",
+                whereClause);
+        Log.d (TAG_TRACE, "updateHistory: item & result = "+inExpression.toString()+ "& "+result);
+        return result;
     }
 
-    public void delete(long _id) {
-        database.delete(DatabaseHelper.TABLE_HISTORY, DatabaseHelper._ID + "=" + _id, null);
+    public int deleteHistory (String itemId) {
+        String[] whereClause = {itemId};
+        int result = database.delete (HistoryTable.TABLE_HISTORY,
+                HistoryTable._ID+" = ?",
+                whereClause);
+        Log.d (TAG_TRACE, "deleteHistory: result = "+result);
+        return result;
     }
 
 }

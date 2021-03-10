@@ -1,6 +1,9 @@
 package com.example.calculapp.database;
 
-import java.text.SimpleDateFormat;
+import android.content.ContentValues;
+import android.database.sqlite.SQLiteDatabase;
+
+import com.example.calculapp.model.HistoryExp;
 
 public class HistoryTable {
 
@@ -11,7 +14,7 @@ public class HistoryTable {
     public static final String _ID = "_id";
     public static final String EXPRESSION = "expression";
     public static final String TIMESTAMP  = "timestamp";
-    public static final String TIMESTAMP_FORMAT = "DD-MM-YYYY-hh-mm-ss";
+    public static final String[] ALL_COLUMNS = {_ID, EXPRESSION, TIMESTAMP};
 
     // Creating table create query
     public static final String CREATE_TABLE_HISTORY = "create table " + TABLE_HISTORY +
@@ -20,50 +23,10 @@ public class HistoryTable {
             "," + TIMESTAMP + " TEXT"+
             ")";
 
-    String _id;
-    String expression;
-    SimpleDateFormat timestamp;
-
-    public HistoryTable(String _id, String expression, SimpleDateFormat timestamp) {
-        this._id = _id;
-        this.expression = expression;
-        this.timestamp = timestamp;
-    }
-
-    public static String getTimestampFormat() {
-        return TIMESTAMP_FORMAT;
-    }
-
-    public String get_id() {
-        return _id;
-    }
-
-    public void set_id(String _id) {
-        this._id = _id;
-    }
-
-    public String getExpression() {
-        return expression;
-    }
-
-    public void setExpression(String expression) {
-        this.expression = expression;
-    }
-
-    public SimpleDateFormat getTimestamp() {
-        return timestamp;
-    }
-
-    public void setTimestamp(SimpleDateFormat timestamp) {
-        this.timestamp = timestamp;
-    }
-
-    @Override
-    public String toString() {
-        return "HistoryTable{" +
-                "_id='" + _id + '\'' +
-                ", expression='" + expression + '\'' +
-                ", timestamp=" + timestamp +
-                '}';
+    public static ContentValues setValues (HistoryExp inValue) {;
+        ContentValues values = new ContentValues();
+        values.put(EXPRESSION, inValue.getExpression());
+        values.put(TIMESTAMP, inValue.getTimestamp().toString());
+        return  values;
     }
 }

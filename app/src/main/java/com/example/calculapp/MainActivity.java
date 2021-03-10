@@ -11,6 +11,9 @@ import android.util.Log;
 
 import com.example.calculapp.database.DatabaseHelper;
 import com.example.calculapp.database.DatabaseManager;
+import com.example.calculapp.model.HistoryExp;
+
+import java.util.ArrayList;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.ActionBar;
@@ -34,10 +37,13 @@ public class MainActivity extends AppCompatActivity implements KeysFragment.Keys
     public static final String KEY_ACTIVITY_DEV = "KEY_ACTIVITY_DEV";
 
     DisplayFragment fragmentDisplay = new DisplayFragment();
-    History history = new History();
 
     private DatabaseManager dbManager;
     SQLiteDatabase database;
+
+    public static ArrayList<HistoryExp> historyArray = new ArrayList<HistoryExp>();
+    public static String currentExp;
+    public static Boolean done;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -56,7 +62,7 @@ public class MainActivity extends AppCompatActivity implements KeysFragment.Keys
         if (done == null) done = false;
 
         if (savedInstanceState != null) {
-            History savedHistory = (History) savedInstanceState.getSerializable(KEY_ACTIVITY_CALC);
+            ArrayList<HistoryExp> savedHistory = (ArrayList<HistoryExp>) savedInstanceState.getSerializable(KEY_ACTIVITY_CALC);
             setCurrentExp(getCurrent());
             setHistory (getHistory());
             setDone(savedHistory.getDone());
@@ -71,8 +77,12 @@ public class MainActivity extends AppCompatActivity implements KeysFragment.Keys
     private void initHistory (){
         dbManager = new DatabaseManager(this);
         dbManager.open();
-        Cursor cursor = dbManager.fetch();
+        ArrayList <HistoryExp> historyExp = new ArrayList<HistoryExp>();
         String historyExpression = "";
+        historyExp = (ArrayList<HistoryExp>) dbManager.readAllHistory();
+        setHistory (historyExp);
+
+        dbManager.close();
 
     }
 
@@ -183,8 +193,8 @@ public class MainActivity extends AppCompatActivity implements KeysFragment.Keys
     }
 
     @Override
-    protected void onPostResume() {
-        super.onPostResume();
+    protected void onResume() {
+        super.onResume();
         dbManager.open();
     }
 }

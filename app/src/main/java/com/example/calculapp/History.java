@@ -1,4 +1,4 @@
-package com.example.calculapp;
+/*package com.example.calculapp;
 
 import java.io.Serializable;
 import java.util.ArrayList;
@@ -58,3 +58,5 @@ public class History implements Serializable {
         historyArray.clear();
     }
 }
+
+ */
