@@ -67,5 +67,10 @@ public class History implements Serializable {
     public static void clearHistory () {
         historyArray.clear();
     }
+
+    public static void clearStrings () {
+        historyStrings.clear();
+    }
+}
 }
 
