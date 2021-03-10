@@ -6,5 +6,5 @@
     android:background="@color/Kombu_Green"
     android:gravity="right"
     android:textColor="#FFEB3B"
-    android:textSize="32sp"
-    android:fontFamily="@font/digital_7"/>
+    android:textSize="48sp"
+    android:fontFamily="@font/digital_7_italic"/>
