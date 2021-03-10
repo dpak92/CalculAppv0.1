@@ -7,10 +7,10 @@ import android.database.SQLException;
 import android.database.sqlite.SQLiteDatabase;
 
 public class DatabaseManager {
-    private DatabaseHelper dbHelper;
 
     private Context context;
 
+    private DatabaseHelper dbHelper;
     private SQLiteDatabase database;
 
     public DatabaseManager(Context c) {
@@ -27,7 +27,7 @@ public class DatabaseManager {
         dbHelper.close();
     }
 
-    public void insert(String name, String desc) {
+    public void insert() {
         ContentValues contentValue = new ContentValues();
         contentValue.put(DatabaseHelper.EXPRESSION, desc);
         database.insert(DatabaseHelper.TABLE_HISTORY, null, contentValue);
@@ -52,4 +52,5 @@ public class DatabaseManager {
     public void delete(long _id) {
         database.delete(DatabaseHelper.TABLE_HISTORY, DatabaseHelper._ID + "=" + _id, null);
     }
+
 }

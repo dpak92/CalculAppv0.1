@@ -3,6 +3,7 @@ package com.example.calculapp;
 import android.app.Activity;
 import android.content.Intent;
 import android.database.Cursor;
+import android.database.sqlite.SQLiteDatabase;
 import android.graphics.Color;
 import android.graphics.drawable.ColorDrawable;
 import android.os.Bundle;
@@ -36,6 +37,7 @@ public class MainActivity extends AppCompatActivity implements KeysFragment.Keys
     History history = new History();
 
     private DatabaseManager dbManager;
+    SQLiteDatabase database;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -172,5 +174,17 @@ public class MainActivity extends AppCompatActivity implements KeysFragment.Keys
                 Log.d (TAG_TRACE, "onActivityResult: CANCELED");
             }
         }
+    }
+
+    @Override
+    protected void onPause() {
+        super.onPause();
+        dbManager.close();;
+    }
+
+    @Override
+    protected void onPostResume() {
+        super.onPostResume();
+        dbManager.open();
     }
 }
