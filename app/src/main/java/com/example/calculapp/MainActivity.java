@@ -19,6 +19,7 @@ import androidx.appcompat.app.AppCompatActivity;
 import static com.example.calculapp.model.History.addCurrent;
 import static com.example.calculapp.model.History.addHistory;
 import static com.example.calculapp.model.History.clearCurrent;
+import static com.example.calculapp.model.History.clearHistory;
 import static com.example.calculapp.model.History.delLastInCurrent;
 import static com.example.calculapp.model.History.getCurrent;
 import static com.example.calculapp.model.History.getDone;
@@ -164,6 +165,10 @@ public class MainActivity extends AppCompatActivity implements KeysFragment.Keys
     public void onACPressed(int duration) {
      if (duration == KeysFragment.CLICK_LONG){
          dbManager.delete();
+         clearHistory();
+         clearCurrent();
+         fragmentDisplay.displayCurrent (getCurrent());
+         fragmentDisplay.displayHistory (getHistory());
      }
     }
 
