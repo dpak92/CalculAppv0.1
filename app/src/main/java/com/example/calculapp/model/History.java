@@ -72,5 +72,4 @@ public class History implements Serializable {
         historyStrings.clear();
     }
 }
-}
 
