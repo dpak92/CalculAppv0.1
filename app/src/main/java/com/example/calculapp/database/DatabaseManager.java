@@ -13,6 +13,7 @@ import com.example.calculapp.model.HistoryExp;
 import java.util.ArrayList;
 
 import static com.example.calculapp.MainActivity.TAG_TRACE;
+import static com.example.calculapp.database.HistoryTable.ALL_COLUMNS;
 import static com.example.calculapp.database.HistoryTable.EXPRESSION;
 import static com.example.calculapp.database.HistoryTable.TABLE_HISTORY;
 import static com.example.calculapp.database.HistoryTable.TIMESTAMP;
@@ -103,12 +104,20 @@ public class DatabaseManager {
 
     public HistoryExp queryHistory (long id) {
         HistoryExp exp = new HistoryExp();
-        Cursor result = database.rawQuery("select * from " + TABLE_HISTORY + " WHERE ID = "+id,null);
-        exp.set_id(result.getLong(result.getColumnIndex(_ID)));
-        exp.setExpression(result.getString(result.getColumnIndex(EXPRESSION)));
-        exp.setTimestamp(result.getString(result.getColumnIndex(TIMESTAMP)));
-        Log.d (TAG_TRACE, "queryHistory: result = "+exp.toString());
+        String where = _ID + " = ?";
+        String[] whereArgs = { Long.toString(id)};
+        Log.d (TAG_TRACE, "queryHistory: where: " + where+"whereArgs: "+whereArgs);
+        Cursor cursor = database.query(TABLE_HISTORY, ALL_COLUMNS, where, whereArgs, null, null, null);
+        try {
+            if (cursor.moveToFirst()) {
+                exp.set_id(cursor.getLong(cursor.getColumnIndex(_ID)));
+                exp.setExpression(cursor.getString(cursor.getColumnIndex(EXPRESSION)));
+                exp.setTimestamp(cursor.getString(cursor.getColumnIndex(TIMESTAMP)));
+                Log.d (TAG_TRACE, "queryHistory: cursor = "+exp.toString());
+            }
+        } finally {
+            cursor.close();
+        }
         return exp;
-    }
-
+        }
 }

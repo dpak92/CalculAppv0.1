@@ -205,6 +205,7 @@ public class MainActivity extends AppCompatActivity implements KeysFragment.Keys
                 Log.d (TAG_TRACE, "onActivityResult: CANCELED "+requestCode);
             }
         } else if (requestCode == 2000) {
+            dbManager.open();
             String action = data.getStringExtra(KEY_ACTION);
             long id = data.getLongExtra(KEY_ID, -1);
             Log.d (TAG_TRACE, "onActivityResult: OK "+
@@ -213,7 +214,7 @@ public class MainActivity extends AppCompatActivity implements KeysFragment.Keys
                     action+
                     " id= "+id);
             HistoryExp exp = dbManager.queryHistory (id);
-
+            dbManager.close();;
         }
     }
 
