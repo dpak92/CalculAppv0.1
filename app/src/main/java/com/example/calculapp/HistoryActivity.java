@@ -14,7 +14,7 @@ import static com.example.calculapp.model.History.historyStrings;
 import static com.example.calculapp.model.History.setDone;
 import static com.example.calculapp.model.History.setHistory;
 
-public class HistoryActivity extends ListActivity {
+public class HistoryActivity extends ListActivity implements HistoryAdapter.HistoryInterface {
 
     History history = new History();
 
@@ -45,5 +45,15 @@ public class HistoryActivity extends ListActivity {
         setHistory(dbManager.readAllHistory(historyStrings));
         setDone(false);
         dbManager.close();
+    }
+
+    @Override
+    public void onModify(int position) {
+
+    }
+
+    @Override
+    public void onDelete(int position) {
+
     }
 }

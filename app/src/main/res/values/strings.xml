@@ -24,4 +24,6 @@
     <string name="title_main">Calculapp 1.0 -  Calculator</string>
     <string name="title_converter">Calculapp 1.0 - Currency Converter</string>
     <string name="tv_convert_currency">EUR to :</string>
+    <string name="iv_modify">modify</string>
+    <string name="iv_delete">delete</string>
 </resources>
