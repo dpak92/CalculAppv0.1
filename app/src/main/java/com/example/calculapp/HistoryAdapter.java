@@ -65,7 +65,6 @@ public class HistoryAdapter extends ArrayAdapter<HistoryExp> {
                 @Override
                 public void onClick(View v) {
                     Log.d(TAG_TRACE, "onClick ImageView Delete= "+v.getTag());
-
                     historyInterface.onDelete ((Long) v.getTag());
                 }
             });

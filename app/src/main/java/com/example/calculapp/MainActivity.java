@@ -212,6 +212,8 @@ public class MainActivity extends AppCompatActivity implements KeysFragment.Keys
                     " returned: action= "+
                     action+
                     " id= "+id);
+            HistoryExp exp = dbManager.queryHistory (id);
+
         }
     }
 

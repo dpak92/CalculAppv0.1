@@ -13,6 +13,10 @@ import com.example.calculapp.model.HistoryExp;
 import java.util.ArrayList;
 
 import static com.example.calculapp.MainActivity.TAG_TRACE;
+import static com.example.calculapp.database.HistoryTable.EXPRESSION;
+import static com.example.calculapp.database.HistoryTable.TABLE_HISTORY;
+import static com.example.calculapp.database.HistoryTable.TIMESTAMP;
+import static com.example.calculapp.database.HistoryTable._ID;
 
 public class DatabaseManager {
 
@@ -95,6 +99,16 @@ public class DatabaseManager {
                 whereClause);
         Log.d (TAG_TRACE, "deleteHistory: result = "+result);
         return result;
+    }
+
+    public HistoryExp queryHistory (long id) {
+        HistoryExp exp = new HistoryExp();
+        Cursor result = database.rawQuery("select * from " + TABLE_HISTORY + " WHERE ID = "+id,null);
+        exp.set_id(result.getLong(result.getColumnIndex(_ID)));
+        exp.setExpression(result.getString(result.getColumnIndex(EXPRESSION)));
+        exp.setTimestamp(result.getString(result.getColumnIndex(TIMESTAMP)));
+        Log.d (TAG_TRACE, "queryHistory: result = "+exp.toString());
+        return exp;
     }
 
 }
