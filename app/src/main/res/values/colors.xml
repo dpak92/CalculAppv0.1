@@ -14,4 +14,8 @@
     <color name="light_grey">#ececec</color>
     <color name="yello_sunflower">#FFF1C40F</color>
     <color name="black_pearl">#FF1E272E</color>
+    <color name="eerie_black">#FF1C1C1C</color>
+    <color name="dark_liver">#FF505050</color>
+    <color name="vivid_cambodge">#FFFF9500</color>
+
 </resources>
