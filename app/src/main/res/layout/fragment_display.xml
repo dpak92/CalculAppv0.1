@@ -13,7 +13,9 @@
         android:background="@color/Kombu_Green"
         android:textColor="#FFFFFF"
         android:textSize="56sp"
-        android:fontFamily="@font/digital_7_italic"/>
+        android:fontFamily="@font/digital_7_italic"
+        android:paddingStart="2sp"
+        android:paddingLeft="2sp" />
 
     <ListView
         android:id="@+id/lv_fragment_display_history"

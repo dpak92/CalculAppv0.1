@@ -7,4 +7,6 @@
     android:gravity="right"
     android:textColor="#FFEB3B"
     android:textSize="48sp"
-    android:fontFamily="@font/digital_7_italic"/>
+    android:paddingEnd="2sp"
+    android:fontFamily="@font/digital_7_italic"
+    android:paddingRight="2sp" />

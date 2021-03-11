@@ -26,6 +26,7 @@ import static com.example.calculapp.model.History.getCurrent;
 import static com.example.calculapp.model.History.getDone;
 import static com.example.calculapp.model.History.getHistory;
 import static com.example.calculapp.model.History.historyStrings;
+import static com.example.calculapp.model.History.setCurrentExp;
 import static com.example.calculapp.model.History.setDone;
 import static com.example.calculapp.model.History.setHistory;
 
@@ -70,6 +71,8 @@ public class MainActivity extends AppCompatActivity implements KeysFragment.Keys
         if (savedInstanceState != null) {
             history  = (History) savedInstanceState.getSerializable(KEY_ACTIVITY_CALC);
             setHistory(history.historyArray);
+            setDone(history.getDone());
+            setCurrentExp(history.getCurrent());
             Log.d (TAG_TRACE, "savedInstanceState: done= "+history.done);
             Log.d (TAG_TRACE, "savedInstanceState: currentExp= "+history.currentExp);
         }
@@ -84,7 +87,6 @@ public class MainActivity extends AppCompatActivity implements KeysFragment.Keys
         dbManager = new DatabaseManager(this);
         dbManager.open();
         setHistory(dbManager.readAllHistory(historyStrings));
-        setDone(false);
         dbManager.close();
     }
 
