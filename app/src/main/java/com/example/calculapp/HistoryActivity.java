@@ -1,6 +1,7 @@
 package com.example.calculapp;
 
 import android.app.ListActivity;
+import android.content.Intent;
 import android.database.sqlite.SQLiteDatabase;
 import android.os.Bundle;
 import android.util.Log;
@@ -8,6 +9,10 @@ import android.util.Log;
 import com.example.calculapp.database.DatabaseManager;
 import com.example.calculapp.model.History;
 
+import static com.example.calculapp.MainActivity.KEY_ACTION;
+import static com.example.calculapp.MainActivity.KEY_DELETE;
+import static com.example.calculapp.MainActivity.KEY_ID;
+import static com.example.calculapp.MainActivity.KEY_MODIFY;
 import static com.example.calculapp.MainActivity.TAG_TRACE;
 import static com.example.calculapp.model.History.historyArray;
 import static com.example.calculapp.model.History.historyStrings;
@@ -48,12 +53,23 @@ public class HistoryActivity extends ListActivity implements HistoryAdapter.Hist
     }
 
     @Override
-    public void onModify(int position) {
-
+    public void onModify(long id) {
+        Log.d (TAG_TRACE, "onModify id= "+id);
+        Intent intent = new Intent();
+        intent.putExtra(KEY_ACTION, KEY_MODIFY);
+        intent.putExtra(KEY_ID, id);
+        setResult (RESULT_OK, intent);
+        finish();
     }
 
     @Override
-    public void onDelete(int position) {
-
+    public void onDelete(long id) {
+        Log.d (TAG_TRACE, "onDelete id= "+id);
+        Intent intent = new Intent();
+        intent.putExtra(KEY_ACTION, KEY_DELETE);
+        intent.putExtra(KEY_ID, id);
+        setResult (RESULT_OK, intent);
+        finish();
     }
+
 }

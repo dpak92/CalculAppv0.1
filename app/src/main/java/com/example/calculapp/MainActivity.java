@@ -34,9 +34,15 @@ public class MainActivity extends AppCompatActivity implements KeysFragment.Keys
     public static final String TAG_TRACE = "TAG_TRACE";
     public static final String KEY_ACTIVITY_CALC = "KEY_ACTIVITY_CALC";
     public static final String KEY_ACTIVITY_DEV = "KEY_ACTIVITY_DEV";
+    private static final String KEY_ACTIVITY_HIS = "KEY_ACTIVITY_HIS";
     public static final String KEY_ACTION = "KEY_ACTION";
     public static final String KEY_MODIFY = "KEY_MODIFY";
     public static final String KEY_DELETE = "KEY_DELETE";
+    public static final String KEY_POSITION = "KEY_POSITION";
+    public static final String KEY_ID = "KEY_ID";
+    public static final int RESULT_OK = 1;
+    public static final int RESULT_NOK = 0;
+
 
     DisplayFragment fragmentDisplay = new DisplayFragment();
 
@@ -180,9 +186,7 @@ public class MainActivity extends AppCompatActivity implements KeysFragment.Keys
     @Override
     public void onHisPressed(int duration) {
         Intent intent = new Intent (this, HistoryActivity.class);
-        intent.putExtra (KEY_ACTIVITY_DEV, history);
-        intent.putExtra (KEY_ACTION, KEY_MODIFY);
-        startActivity (intent);
+        startActivityForResult(intent, 2000);
     }
 
     @Override
@@ -195,11 +199,19 @@ public class MainActivity extends AppCompatActivity implements KeysFragment.Keys
                 fragmentDisplay= (DisplayFragment) getSupportFragmentManager().findFragmentById(R.id.fragment_display);
                 fragmentDisplay.displayCurrent (getCurrent());
                 fragmentDisplay.displayHistory(getHistory());
-                Log.d (TAG_TRACE, "onActivityResult: OK");
+                Log.d (TAG_TRACE, "onActivityResult: OK "+requestCode);
             }
             if (resultCode == Activity.RESULT_CANCELED) {
-                Log.d (TAG_TRACE, "onActivityResult: CANCELED");
+                Log.d (TAG_TRACE, "onActivityResult: CANCELED "+requestCode);
             }
+        } else if (requestCode == 2000) {
+            String action = data.getStringExtra(KEY_ACTION);
+            long id = data.getLongExtra(KEY_ID, -1);
+            Log.d (TAG_TRACE, "onActivityResult: OK "+
+                    requestCode+
+                    " returned: action= "+
+                    action+
+                    " id= "+id);
         }
     }
 

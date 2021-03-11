@@ -27,8 +27,8 @@ public class HistoryAdapter extends ArrayAdapter<HistoryExp> {
     HistoryAdapter.HistoryInterface historyInterface; // instance of the interface
 
     interface HistoryInterface {
-        void onModify (int position);
-        void onDelete (int position);
+        void onModify (long id);
+        void onDelete (long id);
 
     }
 
@@ -51,30 +51,28 @@ public class HistoryAdapter extends ArrayAdapter<HistoryExp> {
         if (item != null) {
             TextView tvList = (TextView) view.findViewById(R.id.tv_list);
             ImageView ivModify = (ImageView) view.findViewById(R.id.iv_list_modify);
-            ivModify.setTag(position);
+            ivModify.setTag(item.get_id());
             ivModify.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
-                    // String tag = v.getTag().toString();
-                    // historyInterface.onModify (Integer.parseInt(tag));
-                    historyInterface.onModify ((Integer) v.getTag());
                     Log.d(TAG_TRACE, "onClick ImageView Modify= "+v.getTag());
+                    historyInterface.onModify ((Long) v.getTag());
                 }
             });
             ImageView ivDelete = (ImageView) view.findViewById(R.id.iv_list_delete);
-            ivDelete.setTag(position);
+            ivDelete.setTag(item.get_id());
             ivDelete.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
-                    String tag = v.getTag().toString();
-                    historyInterface.onModify (Integer.parseInt(tag));
-                    Log.d(TAG_TRACE, "onClick ImageView Delete= "+tag);
+                    Log.d(TAG_TRACE, "onClick ImageView Delete= "+v.getTag());
+
+                    historyInterface.onDelete ((Long) v.getTag());
                 }
             });
 
             try {
+                Log.d(TAG_TRACE, "getView setText= "+item.getExpression().toString());
                 tvList.setText(item.getExpression().toString());
-                Log.d(TAG_TRACE, "getView : " + item.toString());
             } catch (Exception e) {
                 Log.d(TAG_TRACE, "getView tvList exception!");
             }
