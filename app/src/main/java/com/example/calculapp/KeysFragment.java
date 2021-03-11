@@ -2,9 +2,11 @@ package com.example.calculapp;
 
 import android.app.Activity;
 import android.content.Context;
+import android.graphics.PorterDuff;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.LayoutInflater;
+import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
@@ -73,6 +75,7 @@ public class KeysFragment extends Fragment {
             for (View outView : viewsArray) {
                 Button outButton = (Button) outView;
                 setOnClickListeners (outButton);
+                buttonEffect (outButton);
                 outButton.setOnLongClickListener(longClickListener);
                 String keyText = outButton.getText().toString();
                 KeysClass newKey = new KeysClass(keyText, outButton);
@@ -84,7 +87,28 @@ public class KeysFragment extends Fragment {
             Log.d(TAG_TRACE, "initKeysArrays Exception");
         }
     }
+    public static void buttonEffect(View button){
+        button.setOnTouchListener(new View.OnTouchListener() {
 
+            public boolean onTouch(View v, MotionEvent event) {
+                switch (event.getAction()) {
+                    case MotionEvent.ACTION_DOWN: {
+                        v.getBackground().setColorFilter(0xEEEEEEEE, PorterDuff.Mode.SRC_ATOP);
+                        v.invalidate();
+                        Log.d(TAG_TRACE, "onTouch DONW");
+                        break;
+                    }
+                    case MotionEvent.ACTION_UP: {
+                        v.getBackground().clearColorFilter();
+                        v.invalidate();
+                        Log.d(TAG_TRACE, "onTouch UP");
+                        break;
+                    }
+                }
+                return false;
+            }
+        });
+    }
     public void setOnClickListeners (Button inButton) {
         inButton.setOnClickListener(new View.OnClickListener() {
             @Override

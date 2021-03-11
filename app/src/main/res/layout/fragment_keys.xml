@@ -27,7 +27,7 @@
             android:layout_width="0dp"
             android:layout_height="@dimen/button_size"
             app:layout_columnWeight="1"
-            android:background="@android:color/transparent"
+            android:background="@color/black_pearl"
             android:text="AC"
             android:textSize="@dimen/btn_text" />
 
@@ -37,7 +37,7 @@
             android:layout_width="0dp"
             android:layout_height="@dimen/button_size"
             app:layout_columnWeight="1"
-            android:background="@android:color/transparent"
+            android:background="@color/black_pearl"
             android:textSize="@dimen/btn_text"
             android:text="DEL"/>
 
@@ -47,7 +47,7 @@
             android:layout_width="0dp"
             app:layout_columnWeight="1"
             android:layout_height="@dimen/button_size"
-            android:background="@android:color/transparent"
+            android:background="@color/black_pearl"
             android:text="%"
             android:textSize="@dimen/btn_text" />
 
@@ -58,7 +58,7 @@
             app:layout_columnWeight="1"
             android:textColor="@color/yello_sunflower"
             android:layout_height="@dimen/button_size"
-            android:background="@android:color/transparent"
+            android:background="@color/black_pearl"
             android:text="÷"
             android:textSize="@dimen/btn_text" />
 
@@ -68,7 +68,7 @@
             android:layout_width="0dp"
             app:layout_columnWeight="1"
             android:layout_height="@dimen/button_size"
-            android:background="@android:color/transparent"
+            android:background="@color/black_pearl"
             android:text="7"
             android:textSize="@dimen/btn_text" />
 
@@ -78,7 +78,7 @@
             android:layout_width="0dp"
             app:layout_columnWeight="1"
             android:layout_height="@dimen/button_size"
-            android:background="@android:color/transparent"
+            android:background="@color/black_pearl"
             android:text="8"
             android:textSize="@dimen/btn_text" />
 
@@ -88,7 +88,7 @@
             android:layout_width="0dp"
             app:layout_columnWeight="1"
             android:layout_height="@dimen/button_size"
-            android:background="@android:color/transparent"
+            android:background="@color/black_pearl"
             android:text="9"
             android:textSize="@dimen/btn_text" />
 
@@ -99,7 +99,7 @@
             app:layout_columnWeight="1"
             android:layout_height="@dimen/button_size"
             android:textColor="@color/yello_sunflower"
-            android:background="@android:color/transparent"
+            android:background="@color/black_pearl"
             android:text="x"
             android:textSize="@dimen/btn_text" />
 
@@ -109,7 +109,7 @@
             android:layout_width="0dp"
             app:layout_columnWeight="1"
             android:layout_height="@dimen/button_size"
-            android:background="@android:color/transparent"
+            android:background="@color/black_pearl"
             android:text="4"
             android:textSize="@dimen/btn_text" />
 
@@ -119,7 +119,7 @@
             android:layout_width="0dp"
             app:layout_columnWeight="1"
             android:layout_height="@dimen/button_size"
-            android:background="@android:color/transparent"
+            android:background="@color/black_pearl"
             android:text="5"
             android:textSize="@dimen/btn_text" />
 
@@ -129,7 +129,7 @@
             android:layout_width="0dp"
             app:layout_columnWeight="1"
             android:layout_height="@dimen/button_size"
-            android:background="@android:color/transparent"
+            android:background="@color/black_pearl"
             android:text="6"
             android:textSize="@dimen/btn_text" />
 
@@ -140,7 +140,7 @@
             app:layout_columnWeight="1"
             android:textColor="@color/yello_sunflower"
             android:layout_height="@dimen/button_size"
-            android:background="@android:color/transparent"
+            android:background="@color/black_pearl"
             android:text="-"
             android:textSize="@dimen/btn_text" />
 
@@ -150,7 +150,7 @@
             android:layout_width="0dp"
             app:layout_columnWeight="1"
             android:layout_height="@dimen/button_size"
-            android:background="@android:color/transparent"
+            android:background="@color/black_pearl"
             android:text="1"
             android:textSize="@dimen/btn_text" />
 
@@ -160,7 +160,7 @@
             android:layout_width="0dp"
             app:layout_columnWeight="1"
             android:layout_height="@dimen/button_size"
-            android:background="@android:color/transparent"
+            android:background="@color/black_pearl"
             android:text="2"
             android:textSize="@dimen/btn_text" />
 
@@ -170,7 +170,7 @@
             android:layout_width="0dp"
             app:layout_columnWeight="1"
             android:layout_height="@dimen/button_size"
-            android:background="@android:color/transparent"
+            android:background="@color/black_pearl"
             android:text="3"
             android:textSize="@dimen/btn_text" />
 
@@ -181,7 +181,7 @@
             app:layout_columnWeight="1"
             android:textColor="@color/yello_sunflower"
             android:layout_height="@dimen/button_size"
-            android:background="@android:color/transparent"
+            android:background="@color/black_pearl"
             android:text="+"
             android:textSize="@dimen/btn_text" />
 
@@ -191,7 +191,7 @@
             android:layout_width="0dp"
             app:layout_columnWeight="1"
             android:layout_height="@dimen/button_size"
-            android:background="@android:color/transparent"
+            android:background="@color/black_pearl"
             android:text=","
             android:textSize="@dimen/btn_text" />
 
@@ -201,7 +201,7 @@
             android:layout_width="0dp"
             app:layout_columnWeight="1"
             android:layout_height="@dimen/button_size"
-            android:background="@android:color/transparent"
+            android:background="@color/black_pearl"
             android:text="0"
             android:textSize="@dimen/btn_text" />
 
@@ -211,7 +211,7 @@
             android:layout_width="0dp"
             app:layout_columnWeight="1"
             android:layout_height="@dimen/button_size"
-            android:background="@android:color/transparent"
+            android:background="@color/black_pearl"
             android:text="()"
             android:textSize="@dimen/btn_text" />
 
