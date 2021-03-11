@@ -34,6 +34,9 @@ public class MainActivity extends AppCompatActivity implements KeysFragment.Keys
     public static final String TAG_TRACE = "TAG_TRACE";
     public static final String KEY_ACTIVITY_CALC = "KEY_ACTIVITY_CALC";
     public static final String KEY_ACTIVITY_DEV = "KEY_ACTIVITY_DEV";
+    private static final String KEY_ACTION = "KEY_ACTION";
+    private static final String KEY_MODIFY = "KEY_MODIFY";
+    private static final String KEY_DELETE = "KEY_DELETE";
 
     DisplayFragment fragmentDisplay = new DisplayFragment();
 
@@ -176,8 +179,9 @@ public class MainActivity extends AppCompatActivity implements KeysFragment.Keys
 
     @Override
     public void onHisPressed(int duration) {
-        Intent intent = new Intent (this, ConvertActivity.class);
+        Intent intent = new Intent (this, HistoryActivity.class);
         intent.putExtra (KEY_ACTIVITY_DEV, history);
+        intent.putExtra (KEY_ACTION, KEY_MODIFY);
         startActivity (intent);
     }
 

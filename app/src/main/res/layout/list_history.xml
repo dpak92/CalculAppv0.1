@@ -2,21 +2,47 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:orientation="vertical">
+    android:orientation="horizontal"
+    android:background="@color/Kombu_Green">
 
+    <!--
     <ListView
         android:id="@+id/lv_history_list"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent" />
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:background="@color/Kombu_Green" />
+    -->
 
     <TextView
         android:id="@+id/tv_list"
-        android:layout_width="match_parent"
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:background="@color/Kombu_Green"
         android:gravity="left"
         android:textColor="#FFEB3B"
-        android:textSize="48sp"
+        android:textSize="46sp"
+        android:layout_weight="1"
         android:fontFamily="@font/digital_7_italic"/>
+
+    <ImageView
+        android:id="@+id/iv_list_modify"
+        android:layout_width="46sp"
+        android:layout_height="46sp"
+        android:layout_weight="0"
+        android:scaleType="centerInside"
+        android:layout_gravity="right"
+        android:layout_marginRight="5sp"
+        android:layout_marginLeft="5sp"
+        android:src="@drawable/modify" />
+
+    <ImageView
+        android:id="@+id/iv_list_delete"
+        android:layout_width="46sp"
+        android:layout_height="46sp"
+        android:layout_weight="0"
+        android:layout_gravity="right"
+        android:layout_marginRight="5sp"
+        android:layout_marginLeft="5sp"
+        android:src="@drawable/delete" />
 
 </LinearLayout>

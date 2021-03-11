@@ -175,6 +175,11 @@ public class ConvertActivity extends AppCompatActivity implements KeysFragment.K
     }
 
     @Override
+    public void onHisPressed(int duration) {
+
+    }
+
+    @Override
     protected void onSaveInstanceState(@NonNull Bundle outState) {
         super.onSaveInstanceState(outState);
         outState.putSerializable(KEY_ACTIVITY_DEV, history);
