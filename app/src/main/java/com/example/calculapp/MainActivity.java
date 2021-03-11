@@ -71,7 +71,7 @@ public class MainActivity extends AppCompatActivity implements KeysFragment.Keys
 
     }
 
-    private void initHistory (){
+    void initHistory (){
         dbManager = new DatabaseManager(this);
         dbManager.open();
         setHistory(dbManager.readAllHistory(historyStrings));
@@ -172,6 +172,13 @@ public class MainActivity extends AppCompatActivity implements KeysFragment.Keys
          fragmentDisplay.displayCurrent (getCurrent());
          fragmentDisplay.displayHistory (getHistory());
      }
+    }
+
+    @Override
+    public void onHisPressed(int duration) {
+        Intent intent = new Intent (this, ConvertActivity.class);
+        intent.putExtra (KEY_ACTIVITY_DEV, history);
+        startActivity (intent);
     }
 
     @Override

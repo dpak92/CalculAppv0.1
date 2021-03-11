@@ -35,6 +35,7 @@ public class KeysFragment extends Fragment {
         void onDelPressed (int duration);
         void onEqualsPressed (int duration);
         void onACPressed (int duration);
+        void onHisPressed (int duration);
     }
 
     /**
@@ -131,6 +132,9 @@ public class KeysFragment extends Fragment {
                         case "+":
                         case "-":
                             keysInterface.onKeyPressed(buttonText);
+                            break;
+                        case "()":
+                            keysInterface.onHisPressed(CLICK_SHORT);
                             break;
                         case ",":
                             keysInterface.onKeyPressed(".");
