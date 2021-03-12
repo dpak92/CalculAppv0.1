@@ -49,7 +49,6 @@ public class HistoryActivity extends ListActivity implements HistoryAdapter.Hist
         dbManager = new DatabaseManager(this);
         dbManager.open();
         setHistory(dbManager.readAllHistory(historyStrings));
-        setDone(false);
         dbManager.close();
     }
 
@@ -66,6 +65,7 @@ public class HistoryActivity extends ListActivity implements HistoryAdapter.Hist
     @Override
     public void onDelete(long id) {
         Log.d (TAG_TRACE, "onDelete id= "+id);
+        dbManager.deleteHistory(Long.toString(id));
         Intent intent = new Intent();
         intent.putExtra(KEY_ACTION, KEY_DELETE);
         intent.putExtra(KEY_ID, id);
@@ -76,7 +76,7 @@ public class HistoryActivity extends ListActivity implements HistoryAdapter.Hist
     @Override
     protected void onStop() {
         super.onStop();
-        Log.d (TAG_TRACE, "ActivityHistory: yonStop");
+        Log.d (TAG_TRACE, "ActivityHistory: onStop");
         Intent intent = new Intent();
         setResult (RESULT_NOK, intent);
         finish();

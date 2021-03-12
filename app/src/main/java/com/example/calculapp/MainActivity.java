@@ -1,6 +1,9 @@
 package com.example.calculapp;
 
 import android.app.Activity;
+import android.app.AlertDialog;
+import android.content.Context;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.database.sqlite.SQLiteDatabase;
 import android.graphics.Color;
@@ -51,6 +54,8 @@ public class MainActivity extends AppCompatActivity implements KeysFragment.Keys
     DatabaseManager dbManager;
     SQLiteDatabase database;
 
+    Boolean confirm = false;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -72,8 +77,8 @@ public class MainActivity extends AppCompatActivity implements KeysFragment.Keys
             // setHistory(history.historyArray);
             // setDone(history.getDone());
             // setCurrentExp(history.getCurrent());
-            // Log.d (TAG_TRACE, "savedInstanceState: done= "+history.done);
-            // Log.d (TAG_TRACE, "savedInstanceState: currentExp= "+history.currentExp);
+            Log.d (TAG_TRACE, "ActivityMain savedInstanceState: done= "+history.getDone());
+            Log.d (TAG_TRACE, "ActivityMain savedInstanceState: currentExp= "+history.getCurrent());
         }
 
         fragmentDisplay= (DisplayFragment) getSupportFragmentManager().findFragmentById(R.id.fragment_display);
@@ -93,6 +98,8 @@ public class MainActivity extends AppCompatActivity implements KeysFragment.Keys
     @Override
     protected void onSaveInstanceState(@NonNull Bundle outState) {
         super.onSaveInstanceState(outState);
+        Log.d (TAG_TRACE, "ActivityMain onSaveInstanceState: done= "+history.done);
+        Log.d (TAG_TRACE, "oActivityMain onSaveInstanceState: currentExp= "+history.currentExp);
         // outState.putSerializable(KEY_ACTIVITY_CALC, history);
     }
 
@@ -173,19 +180,43 @@ public class MainActivity extends AppCompatActivity implements KeysFragment.Keys
 
     @Override
     public void onACPressed(int duration) {
-     if (duration == KeysFragment.CLICK_LONG){
-         dbManager.delete();
-         clearHistory ();
-         clearCurrent ();
-         clearStrings ();
-         setDone(false);
-         fragmentDisplay.displayCurrent (getCurrent());
-         fragmentDisplay.displayHistory (getHistory());
-     }
+        if (duration == KeysFragment.CLICK_LONG) {
+            openAlertConfirm (this);
+        }
+    }
+    private void openAlertConfirm (Context context) {
+        AlertDialog.Builder builder = new AlertDialog.Builder(this);
+        builder.setMessage(R.string.dialog_text).setTitle(R.string.dialog_title);
+        builder.setCancelable(false)
+                .setPositiveButton ("Yes", new DialogInterface.OnClickListener() {
+                    public void onClick(DialogInterface dialog, int id) {
+                        Log.d (TAG_TRACE, "openAlertConfirm: OK");
+                        deleteHistory();
+                  }
+                })
+                .setNegativeButton ("No", new DialogInterface.OnClickListener() {
+                    public void onClick(DialogInterface dialog, int id) {
+                        Log.d (TAG_TRACE, "openAlertConfirm: CANCEL");
+                        dialog.cancel();
+                    }
+                });
+        AlertDialog alert = builder.create();
+        alert.show();
+    }
+
+    private void deleteHistory() {
+        dbManager.delete();
+        clearHistory ();
+        clearCurrent ();
+        clearStrings ();
+        fragmentDisplay.displayCurrent (getCurrent());
+        fragmentDisplay.displayHistory (getHistory());
     }
 
     @Override
     public void onHisPressed(int duration) {
+        Log.d (TAG_TRACE, "ActivityMain onHisPressed: done= "+history.done);
+        Log.d (TAG_TRACE, "oActivityMain onHisPressed: currentExp= "+history.currentExp);
         Intent intent = new Intent (this, HistoryActivity.class);
         startActivityForResult(intent, 2000);
     }
