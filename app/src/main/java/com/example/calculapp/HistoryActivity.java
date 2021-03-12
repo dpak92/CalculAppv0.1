@@ -17,7 +17,6 @@ import static com.example.calculapp.MainActivity.RESULT_NOK;
 import static com.example.calculapp.MainActivity.TAG_TRACE;
 import static com.example.calculapp.model.History.historyArray;
 import static com.example.calculapp.model.History.historyStrings;
-import static com.example.calculapp.model.History.setDone;
 import static com.example.calculapp.model.History.setHistory;
 
 public class HistoryActivity extends ListActivity implements HistoryAdapter.HistoryInterface {
@@ -49,7 +48,6 @@ public class HistoryActivity extends ListActivity implements HistoryAdapter.Hist
         dbManager = new DatabaseManager(this);
         dbManager.open();
         setHistory(dbManager.readAllHistory(historyStrings));
-        dbManager.close();
     }
 
     @Override
@@ -80,6 +78,18 @@ public class HistoryActivity extends ListActivity implements HistoryAdapter.Hist
         Intent intent = new Intent();
         setResult (RESULT_NOK, intent);
         finish();
+    }
+
+    @Override
+    protected void onPause() {
+        super.onPause();
+        dbManager.close();;
+    }
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+        dbManager.open();
     }
 
 }

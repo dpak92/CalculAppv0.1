@@ -100,6 +100,7 @@ public class DatabaseManager {
 
     public int deleteHistory (String itemId) {
         String[] whereClause = {itemId};
+        Log.d (TAG_TRACE, "deleteHistory: whereClause = "+whereClause);
         int result = database.delete (HistoryTable.TABLE_HISTORY,
                 HistoryTable._ID+" = ?",
                 whereClause);
