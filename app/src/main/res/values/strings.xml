@@ -26,4 +26,7 @@
     <string name="tv_convert_currency">EUR to :</string>
     <string name="iv_modify">modify</string>
     <string name="iv_delete">delete</string>
+    <string name="dialog_text">Delete calculated expressions History?</string>
+    <string name="btn_no">NO</string>
+    <string name="btn_yes">YES</string>
 </resources>
