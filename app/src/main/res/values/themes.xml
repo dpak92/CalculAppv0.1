@@ -26,7 +26,7 @@
         <item name="android:textColorPrimary">@color/white</item>
     </style>
     <style name="OpButtonTheme" parent="Theme.AppCompat.Light.NoActionBar">
-        <item name="colorPrimary">@color/eerie_black</item>
+        <item name="colorPrimary">@color/dark_liver</item>
         <item name="android:textColorPrimary">@color/yellow_sunflower</item>
     </style>
 

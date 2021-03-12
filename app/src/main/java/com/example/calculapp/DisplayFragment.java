@@ -1,8 +1,6 @@
 package com.example.calculapp;
 
 import android.os.Bundle;
-
-import androidx.fragment.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -10,11 +8,9 @@ import android.widget.ArrayAdapter;
 import android.widget.ListView;
 import android.widget.TextView;
 
-import com.example.calculapp.model.HistoryExp;
-
 import java.util.ArrayList;
-import java.util.Collection;
-import java.util.Collections;
+
+import androidx.fragment.app.Fragment;
 
 public class DisplayFragment extends Fragment {
 
@@ -60,10 +56,12 @@ public class DisplayFragment extends Fragment {
         ListView lvHistory;
         ArrayAdapter<String> aaHistory;
 
+        lvHistory = getView().findViewById(R.id.lv_fragment_display_history);
+        aaHistory = new ArrayAdapter<String>(getContext(), R.layout.listview_fragment_history, inStrings);
         if (inStrings.size() > 0) {
-            lvHistory = getView().findViewById(R.id.lv_fragment_display_history);
-            aaHistory = new ArrayAdapter<String>(getContext(), R.layout.listview_fragment_history, inStrings);
             lvHistory.setAdapter (aaHistory);
+        } else {
+            lvHistory.setAdapter (null);
         }
     }
 }

@@ -86,6 +86,8 @@ public class MainActivity extends AppCompatActivity implements KeysFragment.Keys
     void initHistory (){
         dbManager = new DatabaseManager(this);
         dbManager.open();
+        clearHistory();
+        clearStrings();
         setHistory(dbManager.readAllHistory(historyStrings));
         dbManager.close();
     }
@@ -146,12 +148,10 @@ public class MainActivity extends AppCompatActivity implements KeysFragment.Keys
         switch (duration) {
             case KeysFragment.CLICK_SHORT:
                 try {
-                    Log.d (TAG_TRACE, "onEqualsPressed: expression= "+getCurrent());
+                    Log.d(TAG_TRACE, "onEqualsPressed: expression= " + getCurrent());
                     Double dResult = ExpressionsLib.evalExp(getCurrent());
-                    int iResult = dResult.intValue();
                     addCurrent("=");
-                    String sResult = Integer.toString(iResult);
-                    addCurrent(sResult);
+                    addCurrent(String.format("%.2f",dResult));
                     fragmentDisplay.displayCurrent (getCurrent());
                     HistoryExp exp = addHistory(getCurrent());
                     dbManager.createHistory(exp);
@@ -180,6 +180,7 @@ public class MainActivity extends AppCompatActivity implements KeysFragment.Keys
          clearHistory ();
          clearCurrent ();
          clearStrings ();
+         setDone(false);
          fragmentDisplay.displayCurrent (getCurrent());
          fragmentDisplay.displayHistory (getHistory());
      }
