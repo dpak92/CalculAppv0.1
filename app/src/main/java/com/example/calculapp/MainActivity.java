@@ -26,7 +26,6 @@ import static com.example.calculapp.model.History.getCurrent;
 import static com.example.calculapp.model.History.getDone;
 import static com.example.calculapp.model.History.getHistory;
 import static com.example.calculapp.model.History.historyStrings;
-import static com.example.calculapp.model.History.setCurrentExp;
 import static com.example.calculapp.model.History.setDone;
 import static com.example.calculapp.model.History.setHistory;
 
@@ -69,12 +68,12 @@ public class MainActivity extends AppCompatActivity implements KeysFragment.Keys
         if (getDone() == null) setDone (false);
 
         if (savedInstanceState != null) {
-            history  = (History) savedInstanceState.getSerializable(KEY_ACTIVITY_CALC);
-            setHistory(history.historyArray);
-            setDone(history.getDone());
-            setCurrentExp(history.getCurrent());
-            Log.d (TAG_TRACE, "savedInstanceState: done= "+history.done);
-            Log.d (TAG_TRACE, "savedInstanceState: currentExp= "+history.currentExp);
+            // history  = (History) savedInstanceState.getSerializable(KEY_ACTIVITY_CALC);
+            // setHistory(history.historyArray);
+            // setDone(history.getDone());
+            // setCurrentExp(history.getCurrent());
+            // Log.d (TAG_TRACE, "savedInstanceState: done= "+history.done);
+            // Log.d (TAG_TRACE, "savedInstanceState: currentExp= "+history.currentExp);
         }
 
         fragmentDisplay= (DisplayFragment) getSupportFragmentManager().findFragmentById(R.id.fragment_display);
@@ -89,13 +88,12 @@ public class MainActivity extends AppCompatActivity implements KeysFragment.Keys
         clearHistory();
         clearStrings();
         setHistory(dbManager.readAllHistory(historyStrings));
-        dbManager.close();
     }
 
     @Override
     protected void onSaveInstanceState(@NonNull Bundle outState) {
         super.onSaveInstanceState(outState);
-        outState.putSerializable(KEY_ACTIVITY_CALC, history);
+        // outState.putSerializable(KEY_ACTIVITY_CALC, history);
     }
 
     /**
@@ -196,28 +194,31 @@ public class MainActivity extends AppCompatActivity implements KeysFragment.Keys
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
 
-        if (requestCode == 1000) {
-            if(resultCode == Activity.RESULT_OK){
-                history = (History) getIntent().getSerializableExtra(KEY_ACTIVITY_CALC);
-                fragmentDisplay= (DisplayFragment) getSupportFragmentManager().findFragmentById(R.id.fragment_display);
-                fragmentDisplay.displayCurrent (getCurrent());
-                fragmentDisplay.displayHistory(getHistory());
-                Log.d (TAG_TRACE, "onActivityResult: OK "+requestCode);
+        if(resultCode == Activity.RESULT_OK) {
+            switch (requestCode) {
+                case 1000:
+                    history = (History) getIntent().getSerializableExtra(KEY_ACTIVITY_CALC);
+                    fragmentDisplay= (DisplayFragment) getSupportFragmentManager().findFragmentById(R.id.fragment_display);
+                    fragmentDisplay.displayCurrent (getCurrent());
+                    fragmentDisplay.displayHistory(getHistory());
+                    Log.d (TAG_TRACE, "onActivityResult: OK "+requestCode);
+                    break;
+                case 2000:
+                    String action = data.getStringExtra(KEY_ACTION);
+                    long id = data.getLongExtra(KEY_ID, -1);
+                    Log.d (TAG_TRACE, "onActivityResult: OK "+
+                            requestCode+
+                            " returned: action= "+
+                            action+
+                            " id= "+id);
+                    dbManager.open();
+                    HistoryExp exp = dbManager.queryHistory (id);
+                    break;
+                default:
+                    break;
             }
-            if (resultCode == Activity.RESULT_CANCELED) {
-                Log.d (TAG_TRACE, "onActivityResult: CANCELED "+requestCode);
-            }
-        } else if (requestCode == 2000) {
-            dbManager.open();
-            String action = data.getStringExtra(KEY_ACTION);
-            long id = data.getLongExtra(KEY_ID, -1);
-            Log.d (TAG_TRACE, "onActivityResult: OK "+
-                    requestCode+
-                    " returned: action= "+
-                    action+
-                    " id= "+id);
-            HistoryExp exp = dbManager.queryHistory (id);
-            dbManager.close();;
+        } else {
+            Log.d (TAG_TRACE, "onActivityResult: RESULT_NOK "+requestCode);
         }
     }
 

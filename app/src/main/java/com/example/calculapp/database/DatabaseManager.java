@@ -34,9 +34,14 @@ public class DatabaseManager {
     }
 
     public DatabaseManager open() throws SQLException {
-        database = dbHelper.getWritableDatabase();
-        Log.d (TAG_TRACE, "DatabaseManager: open().");
-        return this;
+        try {
+            database = dbHelper.getWritableDatabase();
+            Log.d (TAG_TRACE, "DatabaseManager: open()= OK");
+        } catch (Exception e) {
+            Log.d (TAG_TRACE, "DatabaseManager: open()= EXCEPTION= "+e.getMessage());
+        } finally {
+            return this;
+        }
     }
 
     public void close () {

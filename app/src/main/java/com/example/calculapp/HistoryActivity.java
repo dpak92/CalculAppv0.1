@@ -13,6 +13,7 @@ import static com.example.calculapp.MainActivity.KEY_ACTION;
 import static com.example.calculapp.MainActivity.KEY_DELETE;
 import static com.example.calculapp.MainActivity.KEY_ID;
 import static com.example.calculapp.MainActivity.KEY_MODIFY;
+import static com.example.calculapp.MainActivity.RESULT_NOK;
 import static com.example.calculapp.MainActivity.TAG_TRACE;
 import static com.example.calculapp.model.History.historyArray;
 import static com.example.calculapp.model.History.historyStrings;
@@ -69,6 +70,15 @@ public class HistoryActivity extends ListActivity implements HistoryAdapter.Hist
         intent.putExtra(KEY_ACTION, KEY_DELETE);
         intent.putExtra(KEY_ID, id);
         setResult (RESULT_OK, intent);
+        finish();
+    }
+
+    @Override
+    protected void onStop() {
+        super.onStop();
+        Log.d (TAG_TRACE, "ActivityHistory: yonStop");
+        Intent intent = new Intent();
+        setResult (RESULT_NOK, intent);
         finish();
     }
 
