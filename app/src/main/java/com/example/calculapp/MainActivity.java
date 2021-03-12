@@ -237,13 +237,17 @@ public class MainActivity extends AppCompatActivity implements KeysFragment.Keys
                 case 2000:
                     String action = data.getStringExtra(KEY_ACTION);
                     long id = data.getLongExtra(KEY_ID, -1);
-                    Log.d (TAG_TRACE, "onActivityResult: OK "+
+                    Log.d (TAG_TRACE, "onActivityResul from HistoryActivity: OK "+
                             requestCode+
                             " returned: action= "+
                             action+
                             " id= "+id);
                     dbManager.open();
-                    HistoryExp exp = dbManager.queryHistory (id);
+                    clearHistory();
+                    clearStrings();
+                    setHistory(dbManager.readAllHistory(historyStrings));
+                    fragmentDisplay.displayHistory(getHistory());
+                    dbManager.close();
                     break;
                 default:
                     break;
