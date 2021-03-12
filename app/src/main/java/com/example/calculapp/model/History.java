@@ -51,7 +51,7 @@ public class History implements Serializable {
         HistoryExp exp = new HistoryExp();
         Date now = new Date();
         long timestamp = now.getTime();
-        SimpleDateFormat sdf = new SimpleDateFormat("MM/dd/yyyy", Locale.FRANCE);
+        SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy HH:mm:ss", Locale.FRANCE);
         String dateStr = sdf.format(timestamp);
         exp.setTimestamp(dateStr);
         exp.setExpression(inExpression);

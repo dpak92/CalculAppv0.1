@@ -12,6 +12,7 @@ import android.widget.TextView;
 
 import com.example.calculapp.model.HistoryExp;
 
+import java.text.MessageFormat;
 import java.util.ArrayList;
 
 import androidx.annotation.NonNull;
@@ -71,7 +72,10 @@ public class HistoryAdapter extends ArrayAdapter<HistoryExp> {
 
             try {
                 Log.d(TAG_TRACE, "getView setText= "+item.getExpression().toString());
-                tvList.setText(item.getExpression().toString());
+                String exp = item.getExpression().toString();
+                String ts = item.getTimestamp().toString();
+                String idExp = Long.toString(item.get_id());;
+                tvList.setText(MessageFormat.format("{0} | {1} | {2}", idExp, ts, exp));
             } catch (Exception e) {
                 Log.d(TAG_TRACE, "getView tvList exception!");
             }
