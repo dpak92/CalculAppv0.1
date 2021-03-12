@@ -3,7 +3,10 @@ package com.example.calculapp.model;
 import android.util.Log;
 
 import java.io.Serializable;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Date;
+import java.util.Locale;
 
 import static com.example.calculapp.MainActivity.TAG_TRACE;
 
@@ -46,7 +49,11 @@ public class History implements Serializable {
 
     public static HistoryExp addHistory (String inExpression) {
         HistoryExp exp = new HistoryExp();
-        exp.setTimestamp("NO TIMESTAMP");
+        Date now = new Date();
+        long timestamp = now.getTime();
+        SimpleDateFormat sdf = new SimpleDateFormat("MM/dd/yyyy", Locale.FRANCE);
+        String dateStr = sdf.format(timestamp);
+        exp.setTimestamp(dateStr);
         exp.setExpression(inExpression);
         historyArray.add(0, exp);
         for (HistoryExp hE:historyArray){
